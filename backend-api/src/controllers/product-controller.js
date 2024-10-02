@@ -1,24 +1,27 @@
 const JSend = require('../jsend');
 
-function createProduct(req, res) {
-    return res.status(201).json(JSend.success({ product: {} }));
-}
-
-function getProduct(req, res) {
+function listProducts(req, res) {
     const filters = [];
     const { name, type } = req.query;
 
     if (name) { filters.push(`name=${name}`); }
-
     if (type !== undefined) { filters.push(`type=${type}`); }
 
     console.log(filters.join('&'));
 
     return res.json(
         JSend.success({
-            product: [],
+            products: [],
         })
     );
+}
+
+function getProduct(req, res) {
+    return res.json(JSend.success({ product: {} }));
+}
+
+function createProduct(req, res) {
+    return res.status(201).json(JSend.success({ product: {} }));
 }
 
 function updateProduct(req, res) {
@@ -30,6 +33,7 @@ function deleteProduct(req, res) {
 }
 
 module.exports = {
+    listProducts,
     getProduct,
     createProduct,
     updateProduct,
