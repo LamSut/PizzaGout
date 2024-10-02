@@ -12,5 +12,5 @@ Semester 1, Academic year: 2024-2025
 
 **Student Name 2**: Le Xuan Thanh
 
-**Class Number**: M03
+**Class Number**: CT313HM03
 
