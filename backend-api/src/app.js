@@ -18,6 +18,8 @@ app.get('/', (req, res) => {
     return res.json(JSend.success());
 });
 
+app.use('/public', express.static('public'));
+
 productRouter.setup(app);
 //404 res
 app.use(resourceNotFound);
