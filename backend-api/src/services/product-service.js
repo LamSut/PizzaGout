@@ -85,10 +85,28 @@ async function updateProduct(id, payload) {
     return { ...updatedProduct, ...update };
 }
 
+async function deleteProduct(id) {
+    const deletedProduct = await productRepository()
+        .where('id', id)
+        .select('image')
+        .first();
+    if (!deletedProduct) {
+        return null;
+    }
+    await productRepository().where('id', id).del();
+    if (
+        deletedProduct.image &&
+        deletedProduct.image.startsWith('/public/upload')
+    ) {
+        unlink(`.${deletedProduct.image}`, (err) => { });
+    }
+    return deletedProduct;
+}
 
 module.exports = {
     listProducts,
     getProduct,
     createProduct,
     updateProduct,
+    deleteProduct
 }

@@ -87,8 +87,18 @@ async function updateProduct(req, res, next) {
     }
 }
 
-function deleteProduct(req, res) {
-    return res.json(JSend.success());
+async function deleteProduct(req, res, next) {
+    const { id } = req.params;
+    try {
+        const deleted = await productService.deleteProduct(id);
+        if (!deleted) {
+            return next(new ApiError(404, 'Product not found'));
+        }
+        return res.json(JSend.success());
+    } catch (error) {
+        console.log(error);
+        return next(new ApiError(500, `Could not delete product with id=${id}`));
+    }
 }
 
 module.exports = {

@@ -157,7 +157,21 @@ module.exports.setup = (app) => {
      */
     router.put('/:id', imageUpload, productController.updateProduct);
 
-
+    /**
+     * @swagger
+     * /api/v1/product/{id}:
+     *   delete:
+     *     summary: Delete product by ID
+     *     description: Delete product by ID
+     *     parameters:
+     *       - $ref: '#/components/parameters/productIdParam'
+     *     tags:
+     *       - product
+     *     responses:
+     *       200:
+     *         description: Product deleted
+     *         $ref: '#/components/responses/200NoData'
+     */
     router.delete('/:id', productController.deleteProduct);
 
 
