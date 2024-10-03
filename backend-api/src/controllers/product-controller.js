@@ -1,3 +1,5 @@
+const productService = require('../services/product-service')
+const ApiError = require('../api-error')
 const JSend = require('../jsend');
 
 function listProducts(req, res) {
@@ -15,6 +17,35 @@ function listProducts(req, res) {
         })
     );
 }
+async function listProducts(req, res, next) {
+    let result = {
+        products: [],
+        metadata: {
+            totalRecords: 0,
+            firstPage: 1,
+            lastPage: 1,
+            page: 1,
+            limit: 6,
+        }
+    };
+
+    try {
+        result = await productService.getProducts(req.query);
+    } catch (error) {
+        console.log(error);
+        return next(
+            new ApiError(500, 'An error occurred while retrieving contacts')
+        );
+    }
+
+    return res.json(
+        JSend.success({
+            products: result.products,
+            metadata: result.metadata,
+        })
+    );
+}
+
 
 function getProduct(req, res) {
     return res.json(JSend.success({ product: {} }));
