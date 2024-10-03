@@ -13,7 +13,7 @@ function readProduct(payload) {
 }
 
 const Paginator = require('./paginator');
-async function getProducts(query) {
+async function listProducts(query) {
     const { name, type, page = 1, limit = 6 } = query;
     const paginator = new Paginator(page, limit);
     let results = await productRepository()
@@ -48,7 +48,12 @@ async function getProducts(query) {
     };
 }
 
+async function getProduct(product_id) {
+    return productRepository().where('product_id', product_id).select('*').first();
+}
+
 // Define functions for accessing the database
 module.exports = {
-    getProducts
+    listProducts,
+    getProduct
 }

@@ -5,9 +5,8 @@ const options = {
     definition: {
         openapi: '3.1.0',
         info: {
-            title: 'Contact App API',
+            title: 'Pizza Website API',
             version: '1.0.0',
-            description: 'A simple contact app API',
         },
         servers: [
             {

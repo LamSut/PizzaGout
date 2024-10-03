@@ -2,21 +2,6 @@ const productService = require('../services/product-service')
 const ApiError = require('../api-error')
 const JSend = require('../jsend');
 
-function listProducts(req, res) {
-    const filters = [];
-    const { name, type } = req.query;
-
-    if (name) { filters.push(`name=${name}`); }
-    if (type !== undefined) { filters.push(`type=${type}`); }
-
-    console.log(filters.join('&'));
-
-    return res.json(
-        JSend.success({
-            products: [],
-        })
-    );
-}
 async function listProducts(req, res, next) {
     let result = {
         products: [],
@@ -28,16 +13,14 @@ async function listProducts(req, res, next) {
             limit: 6,
         }
     };
-
     try {
-        result = await productService.getProducts(req.query);
+        result = await productService.listProducts(req.query);
     } catch (error) {
         console.log(error);
         return next(
             new ApiError(500, 'An error occurred while retrieving contacts')
         );
     }
-
     return res.json(
         JSend.success({
             products: result.products,
@@ -46,9 +29,18 @@ async function listProducts(req, res, next) {
     );
 }
 
-
-function getProduct(req, res) {
-    return res.json(JSend.success({ product: {} }));
+async function getProduct(req, res, next) {
+    const { product_id } = req.params;
+    try {
+        const product = await productService.getProduct(product_id);
+        if (!product) {
+            return next(new ApiError(404, 'Product not found'));
+        }
+        return res.json(JSend.success({ product }));
+    } catch (error) {
+        console.log(error);
+        return next(new ApiError(500, `Error retrieving product with product_id=${product_id}`));
+    }
 }
 
 function createProduct(req, res) {

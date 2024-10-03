@@ -11,8 +11,8 @@ module.exports.setup = (app) => {
      * @swagger
      * /api/v1/product:
      *   get:
-     *     summary: Get products by filter
-     *     description: Get products by filter
+     *     summary: List products by filter
+     *     description: List products by filter
      *     parameters:
      *       - in: query
      *         name: name
@@ -31,10 +31,10 @@ module.exports.setup = (app) => {
      *       - $ref: '#/components/parameters/limitParam'
      *       - $ref: '#/components/parameters/pageParam'
      *     tags:
-     *       - contacts
+     *       - product
      *     responses:
      *       200:
-     *         description: A list of contacts
+     *         description: A list of products
      *         content:
      *           application/json:
      *             schema:
@@ -47,7 +47,7 @@ module.exports.setup = (app) => {
      *                 data:
      *                   type: object
      *                   properties:
-     *                     contacts:
+     *                     products:
      *                       type: array
      *                       items:
      *                         $ref: '#/components/schemas/Product'
@@ -56,8 +56,35 @@ module.exports.setup = (app) => {
      */
     router.get('/', productController.listProducts);
 
-
-    router.get('/:id', productController.getProduct);
+    /**
+     * @swagger
+     * /api/v1/product/{product_id}:
+     *   get:
+     *     summary: Get product by ID
+     *     description: Get product by ID
+     *     parameters:
+     *       - $ref: '#/components/parameters/productIdParam'
+     *     tags:
+     *       - product
+     *     responses:
+     *       200:
+     *         description: A product
+     *         content:
+     *           application/json:
+     *             schema:
+     *               type: object
+     *               properties:
+     *                 status:
+     *                   type: string
+     *                   description: The response status
+     *                   enum: [success]
+     *                 data:
+     *                   type: object
+     *                   properties:
+     *                     product:
+     *                       $ref: '#/components/schemas/Product'
+     */
+    router.get('/:product_id', productController.getProduct);
 
 
     router.post('/', productController.createProduct);
