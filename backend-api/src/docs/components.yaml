@@ -4,7 +4,7 @@ components:
     Product:
       type: object
       properties:
-        product_id:
+        id:
           type: integer
           readOnly: true # Returned by HTTP GET
         name:
@@ -75,7 +75,7 @@ components:
                 description: The response data
   parameters:
     productIdParam:
-      name: product_id
+      name: id
       description: Product ID
       required: true
       in: path

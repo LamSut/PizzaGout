@@ -28,8 +28,8 @@ async function listProducts(query) {
             }
         })
         .select(
-            knex.raw('count(product_id) OVER() AS recordCount'),
-            'product_id',
+            knex.raw('count(id) OVER() AS recordCount'),
+            'id',
             'name',
             'type',
             'description',
@@ -50,18 +50,45 @@ async function listProducts(query) {
     };
 }
 
-async function getProduct(product_id) {
-    return productRepository().where('product_id', product_id).select('*').first();
+async function getProduct(id) {
+    return productRepository().where('id', id).select('*').first();
 }
 
 async function createProduct(payload) {
     const product = readProduct(payload);
-    const [product_id] = await productRepository().insert(product);
-    return { product_id, ...product };
+    const [id] = await productRepository().insert(product);
+    return { id, ...product };
 }
+
+const { unlink } = require('node:fs');
+async function updateProduct(id, payload) {
+    const updatedProduct = await productRepository()
+        .where('id', id)
+        .select('*')
+        .first();
+    if (!updatedProduct) {
+        return null;
+    }
+    const update = readProduct(payload);
+    if (!update.image) {
+        delete update.image;
+    }
+    await productRepository().where('id', id).update(update);
+    if (
+        update.image &&
+        updatedProduct.image &&
+        update.image !== updatedProduct.image &&
+        updatedProduct.image.startsWith('/public/upload')
+    ) {
+        unlink(`.${updatedProduct.image}`, (err) => { });
+    }
+    return { ...updatedProduct, ...update };
+}
+
 
 module.exports = {
     listProducts,
     getProduct,
-    createProduct
+    createProduct,
+    updateProduct,
 }

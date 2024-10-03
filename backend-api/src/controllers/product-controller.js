@@ -30,22 +30,19 @@ async function listProducts(req, res, next) {
 }
 
 async function getProduct(req, res, next) {
-    const { product_id } = req.params;
+    const { id } = req.params;
     try {
-        const product = await productService.getProduct(product_id);
+        const product = await productService.getProduct(id);
         if (!product) {
             return next(new ApiError(404, 'Product not found'));
         }
         return res.json(JSend.success({ product }));
     } catch (error) {
         console.log(error);
-        return next(new ApiError(500, `Error retrieving product with product_id=${product_id}`));
+        return next(new ApiError(500, `Error retrieving product with id=${id}`));
     }
 }
 
-function createProduct(req, res) {
-    return res.status(201).json(JSend.success({ product: {} }));
-}
 async function createProduct(req, res, next) {
     if (!req.body?.name || typeof req.body.name !== 'string') {
         return next(new ApiError(400, 'Name should be a non-empty string'));
@@ -60,7 +57,7 @@ async function createProduct(req, res, next) {
         return res
             .status(201)
             .set({
-                Location: `${req.baseUrl}/${product.product_id}`,
+                Location: `${req.baseUrl}/${product.id}`,
             })
             .json(JSend.success({ product }));
     } catch (error) {
@@ -70,8 +67,24 @@ async function createProduct(req, res, next) {
 }
 
 
-function updateProduct(req, res) {
-    return res.json(JSend.success({ product: {} }));
+async function updateProduct(req, res, next) {
+    if (Object.keys(req.body).length === 0 && !req.file) {
+        return next(new ApiError(400, 'Data to update cannot be empty'));
+    }
+    const { id } = req.params;
+    try {
+        const updated = await productService.updateProduct(id, {
+            ...req.body,
+            image: req.file ? `/public/upload/${req.file.filename}` : null,
+        });
+        if (!updated) {
+            return next(new ApiError(404, 'Product not found'));
+        }
+        return res.json(JSend.success({ product: updated }));
+    } catch (error) {
+        console.log(error);
+        return next(new ApiError(500, `Error updating product with id=${id}`));
+    }
 }
 
 function deleteProduct(req, res) {

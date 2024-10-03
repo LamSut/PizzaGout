@@ -59,7 +59,7 @@ module.exports.setup = (app) => {
 
     /**
      * @swagger
-     * /api/v1/product/{product_id}:
+     * /api/v1/product/{id}:
      *   get:
      *     summary: Get product by ID
      *     description: Get product by ID
@@ -85,7 +85,7 @@ module.exports.setup = (app) => {
      *                     product:
      *                       $ref: '#/components/schemas/Product'
      */
-    router.get('/:product_id', productController.getProduct);
+    router.get('/:id', productController.getProduct);
 
     /**
      * @swagger
@@ -121,13 +121,46 @@ module.exports.setup = (app) => {
      */
     router.post('/', imageUpload, productController.createProduct);
 
+    /**
+     * @swagger
+     * /api/v1/product/{id}:
+     *   put:
+     *     summary: Update product by ID
+     *     description: Update product by ID
+     *     parameters:
+     *       - $ref: '#/components/parameters/productIdParam'
+     *     requestBody:
+     *       required: true
+     *       content:
+     *         multipart/form-data:
+     *           schema:
+     *             $ref: '#/components/schemas/Product'
+     *     tags:
+     *       - product
+     *     responses:
+     *       200:
+     *         description: An updated product
+     *         content:
+     *           application/json:
+     *             schema:
+     *               type: object
+     *               properties:
+     *                 status:
+     *                   type: string
+     *                   description: The response status
+     *                   enum: [success]
+     *                 data:
+     *                   type: object
+     *                   properties:
+     *                     product:
+     *                       $ref: '#/components/schemas/Product'
+     */
+    router.put('/:id', imageUpload, productController.updateProduct);
 
-    router.put('/:product_id', productController.updateProduct);
 
-
-    router.delete('/:product_id', productController.deleteProduct);
+    router.delete('/:id', productController.deleteProduct);
 
 
     router.all('/', methodNotAllowed);
-    router.all('/:product_id', methodNotAllowed);
+    router.all('/:id', methodNotAllowed);
 };
