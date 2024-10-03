@@ -1,6 +1,7 @@
 const express = require('express');
 const productController = require('../controllers/product-controller');
 const { methodNotAllowed } = require('../controllers/error-controller')
+const imageUpload = require('../middlewares/image-upload-middleware');
 
 const router = express.Router();
 
@@ -86,16 +87,47 @@ module.exports.setup = (app) => {
      */
     router.get('/:product_id', productController.getProduct);
 
+    /**
+     * @swagger
+     * /api/v1/product:
+     *   post:
+     *     summary: Create a new product
+     *     description: Create a new product
+     *     requestBody:
+     *       required: true
+     *       content:
+     *         multipart/form-data:
+     *           schema:
+     *             $ref: '#/components/schemas/Product'
+     *     tags:
+     *       - product
+     *     responses:
+     *       201:
+     *         description: A new product
+     *         content:
+     *           application/json:
+     *             schema:
+     *               type: object
+     *               properties:
+     *                 status:
+     *                   type: string
+     *                   description: The response status
+     *                   enum: [success]
+     *                 data:
+     *                   type: object
+     *                   properties:
+     *                     product:
+     *                       $ref: '#/components/schemas/Product'
+     */
+    router.post('/', imageUpload, productController.createProduct);
 
-    router.post('/', productController.createProduct);
+
+    router.put('/:product_id', productController.updateProduct);
 
 
-    router.put('/:id', productController.updateProduct);
-
-
-    router.delete('/:id', productController.deleteProduct);
+    router.delete('/:product_id', productController.deleteProduct);
 
 
     router.all('/', methodNotAllowed);
-    router.all('/:id', methodNotAllowed);
+    router.all('/:product_id', methodNotAllowed);
 };

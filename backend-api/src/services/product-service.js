@@ -12,6 +12,8 @@ function readProduct(payload) {
     };
 }
 
+// Define functions for accessing the database
+
 const Paginator = require('./paginator');
 async function listProducts(query) {
     const { name, type, page = 1, limit = 6 } = query;
@@ -52,8 +54,14 @@ async function getProduct(product_id) {
     return productRepository().where('product_id', product_id).select('*').first();
 }
 
-// Define functions for accessing the database
+async function createProduct(payload) {
+    const product = readProduct(payload);
+    const [product_id] = await productRepository().insert(product);
+    return { product_id, ...product };
+}
+
 module.exports = {
     listProducts,
-    getProduct
+    getProduct,
+    createProduct
 }
