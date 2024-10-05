@@ -3,7 +3,7 @@ const cors = require('cors');
 
 const JSend = require('./jsend');
 const productRouter = require('./routes/product-router');
-//const cartRouter = require('./routes/cart-router');
+const cartRouter = require('./routes/cart-router');
 const {
     resourceNotFound,
     handleError,
@@ -24,7 +24,7 @@ app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(specs));
 app.use('/public', express.static('public'));
 
 productRouter.setup(app);
-//cartRouter.setup(app);
+cartRouter.setup(app);
 //404 res
 app.use(resourceNotFound);
 // Define error-handling middleware last, after other app.use() and routes calls

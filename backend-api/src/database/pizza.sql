@@ -23,11 +23,11 @@ CREATE TABLE product (
     price INT NOT NULL,
     image VARCHAR(255) DEFAULT NULL
 );
-insert into product values (1,'cc','Pizza','cl',100,NULL);
-insert into product values (2,'cl','Pizza','clm',200,NULL);
-insert into product values (3,'ccq','Drink','cls',300,NULL);
-insert into product values (4,'clq','Pizza','cld',500,NULL);
-insert into product values (5,'clm','Pizza','cle',600,NULL);
+insert into product values (1,'aa','Pizza','abc',100,NULL);
+insert into product values (2,'bb','Pizza','def',200,NULL);
+insert into product values (3,'cc','Drink','ghi',300,NULL);
+insert into product values (4,'dd','Pizza','jkl',500,NULL);
+insert into product values (5,'ee','Pizza','mno',600,NULL);
 
 -- DROP TABLE cart
 CREATE TABLE cart (
@@ -38,7 +38,7 @@ CREATE TABLE cart (
     time TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
--- DROP TABLE product
+-- DROP TABLE item
 CREATE TABLE item (
     cart_id INT,
     product_id INT,
