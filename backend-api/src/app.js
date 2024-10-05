@@ -4,6 +4,7 @@ const cors = require('cors');
 const JSend = require('./jsend');
 const productRouter = require('./routes/product-router');
 const cartRouter = require('./routes/cart-router');
+const itemRouter = require('./routes/item-router');
 const {
     resourceNotFound,
     handleError,
@@ -25,6 +26,7 @@ app.use('/public', express.static('public'));
 
 productRouter.setup(app);
 cartRouter.setup(app);
+//itemRouter.setup(app);
 //404 res
 app.use(resourceNotFound);
 // Define error-handling middleware last, after other app.use() and routes calls

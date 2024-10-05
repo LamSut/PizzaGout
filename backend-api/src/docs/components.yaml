@@ -32,8 +32,23 @@ components:
           format: binary
           writeOnly: true # Used in POST/PUT/PATCH
           description: product image file
-    Cart: #HERE
-    
+    Cart:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true # Returned by HTTP GET
+        name:
+          type: string
+          description: cart name
+        phone:
+          type: string
+          description: phone number
+        address:
+          type: string
+          description: address
+    Item:
+      #HERE
     PaginationMetadata:
       type: object
       properties: 
@@ -83,7 +98,13 @@ components:
       schema:
         type: integer
     
-    cartIdParam: #HERE
+    cartIdParam:
+      name: id
+      description: Cart ID
+      required: true
+      in: path
+      schema:
+        type: integer
 
     limitParam:
       name: limit
