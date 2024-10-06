@@ -154,6 +154,23 @@ module.exports.setup = (app) => {
      *                   properties:
      *                     product:
      *                       $ref: '#/components/schemas/Product'
+     *       404:
+     *         description: Product not found
+     *         content:
+     *           application/json:
+     *             schema:
+     *               type: object
+     *               properties:
+     *                 status:
+     *                   type: string
+     *                   description: The response status
+     *                   enum: [fail]
+     *                 message:
+     *                   type: string
+     *                   description: Error message
+     *                   example: Product not found
+     *                 data:
+     *                   type: object
      */
     router.put('/:id', imageUpload, productController.updateProduct);
 
