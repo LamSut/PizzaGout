@@ -26,7 +26,7 @@ app.use('/public', express.static('public'));
 
 productRouter.setup(app);
 cartRouter.setup(app);
-//itemRouter.setup(app);
+itemRouter.setup(app);
 //404 res
 app.use(resourceNotFound);
 // Define error-handling middleware last, after other app.use() and routes calls

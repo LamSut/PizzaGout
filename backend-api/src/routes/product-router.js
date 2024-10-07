@@ -54,6 +54,9 @@ module.exports.setup = (app) => {
      *                         $ref: '#/components/schemas/Product'
      *                     metadata:
      *                       $ref: '#/components/schemas/PaginationMetadata'
+     *       500:
+     *         description: Internal Server Error
+     *         $ref: '#/components/responses/500'
      */
     router.get('/', productController.listProducts);
 
@@ -84,6 +87,9 @@ module.exports.setup = (app) => {
      *                   properties:
      *                     product:
      *                       $ref: '#/components/schemas/Product'
+     *       500:
+     *         description: Internal Server Error
+     *         $ref: '#/components/responses/500'
      */
     router.get('/:id', productController.getProduct);
 
@@ -118,6 +124,9 @@ module.exports.setup = (app) => {
      *                   properties:
      *                     product:
      *                       $ref: '#/components/schemas/Product'
+     *       500:
+     *         description: Internal Server Error
+     *         $ref: '#/components/responses/500'
      */
     router.post('/', imageUpload, productController.createProduct);
 
@@ -154,23 +163,9 @@ module.exports.setup = (app) => {
      *                   properties:
      *                     product:
      *                       $ref: '#/components/schemas/Product'
-     *       404:
-     *         description: Product not found
-     *         content:
-     *           application/json:
-     *             schema:
-     *               type: object
-     *               properties:
-     *                 status:
-     *                   type: string
-     *                   description: The response status
-     *                   enum: [fail]
-     *                 message:
-     *                   type: string
-     *                   description: Error message
-     *                   example: Product not found
-     *                 data:
-     *                   type: object
+     *       500:
+     *         description: Internal Server Error
+     *         $ref: '#/components/responses/500'
      */
     router.put('/:id', imageUpload, productController.updateProduct);
 
@@ -188,6 +183,9 @@ module.exports.setup = (app) => {
      *       200:
      *         description: Product deleted
      *         $ref: '#/components/responses/200NoData'
+     *       500:
+     *         description: Internal Server Error
+     *         $ref: '#/components/responses/500'
      */
     router.delete('/:id', productController.deleteProduct);
 

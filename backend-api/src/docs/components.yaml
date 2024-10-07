@@ -74,6 +74,21 @@ components:
           description: The number of records per page
 
   responses:
+    '200Product':
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              status:
+                type: string
+                description: The response status
+                enum: [success]
+              data:
+                type: object
+                properties:
+                  contact:
+                    $ref: '#/components/schemas/Product'
     '200NoData':
       content:
         application/json:
@@ -89,6 +104,45 @@ components:
                 nullable: true
                 default: null
                 description: The response data
+    '400':
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              status:
+                type: string
+                description: The response status
+                enum: [fail]
+              message:
+                type: string
+                default: "Bad Request"
+    '404':
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              status:
+                type: string
+                description: The response status
+                enum: [fail]
+              message:
+                type: string
+                default: "Contact not found"
+    '500':
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              status:
+                type: string
+                description: The response status
+                enum: [fail]
+              message:
+                type: string
+                default: "Internal Server Error"
   parameters:
     productIdParam:
       name: id
