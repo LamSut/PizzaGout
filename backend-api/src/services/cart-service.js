@@ -2,6 +2,9 @@ const knex = require('../database/knex');
 function cartRepository(){
     return knex('cart');
 }
+function itemRepository(){
+    return knex('item');
+}
 
 function readCart(payload) {
     return {
@@ -43,6 +46,11 @@ async function deleteCart(id) {
     if (!deletedCart) {
         return null;
     }
+    
+    await itemRepository()
+    .where('cart_id', id)
+    .del();
+
     await cartRepository().where('id', id).del();
     return deletedCart;
 }
