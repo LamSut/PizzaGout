@@ -89,6 +89,21 @@ components:
                 properties:
                   contact:
                     $ref: '#/components/schemas/Product'
+    '200Cart':
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              status:
+                type: string
+                description: The response status
+                enum: [success]
+              data:
+                type: object
+                properties:
+                  contact:
+                    $ref: '#/components/schemas/Cart'
     '200NoData':
       content:
         application/json:

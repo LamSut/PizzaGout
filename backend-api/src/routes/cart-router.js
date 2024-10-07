@@ -50,6 +50,12 @@ module.exports.setup = (app) => {
      *                   properties:
      *                     cart:
      *                       $ref: '#/components/schemas/Cart'
+     *       400:
+     *         description: Bad Request
+     *         $ref: '#/components/responses/400'
+     *       500:
+     *         description: Internal Server Error
+     *         $ref: '#/components/responses/500'
      */
     router.post('/', upload.none(), cartController.createCart);
 
@@ -66,20 +72,13 @@ module.exports.setup = (app) => {
      *     responses:
      *       200:
      *         description: A cart
-     *         content:
-     *           application/json:
-     *             schema:
-     *               type: object
-     *               properties:
-     *                 status:
-     *                   type: string
-     *                   description: The response status
-     *                   enum: [success]
-     *                 data:
-     *                   type: object
-     *                   properties:
-     *                     cart:
-     *                       $ref: '#/components/schemas/Cart'
+     *         $ref: '#/components/responses/200Cart'
+     *       404:
+     *         description: Cart not found
+     *         $ref: '#/components/responses/404'
+     *       500:
+     *         description: Internal Server Error
+     *         $ref: '#/components/responses/500'
      */
     router.get('/:id', cartController.getCart);
 
@@ -112,23 +111,19 @@ module.exports.setup = (app) => {
      *     responses:
      *       200:
      *         description: An updated cart
-     *         content:
-     *           application/json:
-     *             schema:
-     *               type: object
-     *               properties:
-     *                 status:
-     *                   type: string
-     *                   description: The response status
-     *                   enum: [success]
-     *                 data:
-     *                   type: object
-     *                   properties:
-     *                     cart:
-     *                       $ref: '#/components/schemas/Cart'
+     *         $ref: '#/components/responses/200Cart'
+     *       400:
+     *         description: Bad Request
+     *         $ref: '#/components/responses/400'
+     *       404:
+     *         description: Cart not found
+     *         $ref: '#/components/responses/404'
+     *       500:
+     *         description: Internal Server Error
+     *         $ref: '#/components/responses/500'
      */
     router.put('/:id', upload.none(), cartController.updateCart);
-     
+
     /**
      * @swagger
      * /api/v1/cart/{id}:
@@ -143,6 +138,12 @@ module.exports.setup = (app) => {
      *       200:
      *         description: Cart deleted
      *         $ref: '#/components/responses/200NoData'
+     *       404:
+     *         description: Cart not found
+     *         $ref: '#/components/responses/404'
+     *       500:
+     *         description: Internal Server Error
+     *         $ref: '#/components/responses/500'
      */
     router.delete('/:id', cartController.deleteCart);
 
