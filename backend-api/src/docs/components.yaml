@@ -117,6 +117,8 @@ components:
               message:
                 type: string
                 default: "Bad Request"
+              data:
+                type: object
     '404':
       content:
         application/json:
@@ -129,7 +131,9 @@ components:
                 enum: [fail]
               message:
                 type: string
-                default: "Contact not found"
+                default: "Resource not found"
+              data:
+                type: object
     '500':
       content:
         application/json:
@@ -143,6 +147,8 @@ components:
               message:
                 type: string
                 default: "Internal Server Error"
+              data:
+                type: object
   parameters:
     productIdParam:
       name: id

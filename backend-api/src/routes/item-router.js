@@ -7,9 +7,9 @@ const router = express.Router();
 const upload = multer();
 
 module.exports.setup = (app) => {
-    app.use('/api/v1/cart', router);
+    app.use('/api/v1/cart/:id/product', router);
 
-    router.get('/:id/product', itemController.getAllItemsByCartID);
+    router.get('/', itemController.getAllItemsByCartID);
 
     router.all('/', methodNotAllowed);
     router.all('/:id', methodNotAllowed);

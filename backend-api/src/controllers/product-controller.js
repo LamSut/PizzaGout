@@ -71,6 +71,9 @@ async function updateProduct(req, res, next) {
     if (Object.keys(req.body).length === 0 && !req.file) {
         return next(new ApiError(400, 'Data to update cannot be empty'));
     }
+    if (!req.body?.name || typeof req.body.name !== 'string') {
+        return next(new ApiError(400, 'Name should be a non-empty string'));
+    }
     const { id } = req.params;
     try {
         const updated = await productService.updateProduct(id, {

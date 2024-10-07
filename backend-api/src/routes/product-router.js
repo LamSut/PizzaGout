@@ -73,20 +73,10 @@ module.exports.setup = (app) => {
      *     responses:
      *       200:
      *         description: A product
-     *         content:
-     *           application/json:
-     *             schema:
-     *               type: object
-     *               properties:
-     *                 status:
-     *                   type: string
-     *                   description: The response status
-     *                   enum: [success]
-     *                 data:
-     *                   type: object
-     *                   properties:
-     *                     product:
-     *                       $ref: '#/components/schemas/Product'
+     *         $ref: '#/components/responses/200Product'
+     *       404:
+     *         description: Product not found
+     *         $ref: '#/components/responses/404'
      *       500:
      *         description: Internal Server Error
      *         $ref: '#/components/responses/500'
@@ -124,6 +114,9 @@ module.exports.setup = (app) => {
      *                   properties:
      *                     product:
      *                       $ref: '#/components/schemas/Product'
+     *       400:
+     *         description: Bad Request
+     *         $ref: '#/components/responses/400'
      *       500:
      *         description: Internal Server Error
      *         $ref: '#/components/responses/500'
@@ -149,20 +142,13 @@ module.exports.setup = (app) => {
      *     responses:
      *       200:
      *         description: An updated product
-     *         content:
-     *           application/json:
-     *             schema:
-     *               type: object
-     *               properties:
-     *                 status:
-     *                   type: string
-     *                   description: The response status
-     *                   enum: [success]
-     *                 data:
-     *                   type: object
-     *                   properties:
-     *                     product:
-     *                       $ref: '#/components/schemas/Product'
+     *         $ref: '#/components/responses/200Product'
+     *       400:
+     *         description: Bad Request
+     *         $ref: '#/components/responses/400'
+     *       404:
+     *         description: Product not found
+     *         $ref: '#/components/responses/404'
      *       500:
      *         description: Internal Server Error
      *         $ref: '#/components/responses/500'
@@ -183,6 +169,9 @@ module.exports.setup = (app) => {
      *       200:
      *         description: Product deleted
      *         $ref: '#/components/responses/200NoData'
+     *       404:
+     *         description: Product not found
+     *         $ref: '#/components/responses/404'
      *       500:
      *         description: Internal Server Error
      *         $ref: '#/components/responses/500'
