@@ -3,11 +3,11 @@ const ApiError = require('../api-error');
 const JSend = require('../jsend');
 
 async function getAllItemsByCartID(req, res, next) {
-    const { id } = req.params;
+    const cartID = req.params.cartID;
     try {
-        const items = await itemService.getAllItemsByCartID(id);
+        const items = await itemService.getAllItemsByCartID(cartID);
         if (!items.length) {
-            return next(new ApiError(404, 'No items found for this cart'));
+            return next(new ApiError(404, 'No items found for this cart, or cart may not exists'));
         }
 
         const formattedItems = items.map(item => ({
@@ -22,7 +22,7 @@ async function getAllItemsByCartID(req, res, next) {
         return res.json(JSend.success({ items: formattedItems }));
     } catch (error) {
         console.log(error);
-        return next(new ApiError(500, `Error retrieving items for cart with id=${id}`));
+        return next(new ApiError(500, `Error retrieving items for cart with id=${cartID}`));
     }
 }
 
