@@ -8,7 +8,7 @@ flush privileges;
 
 -- DROP TABLE admin;
 CREATE TABLE admin (
-    id INT AUTO_INCREMENT PRIMARY KEY,
+    adminid INT AUTO_INCREMENT PRIMARY KEY,
     username VARCHAR(50) UNIQUE NOT NULL,
     password VARCHAR(255) NOT NULL
 );
@@ -16,7 +16,7 @@ CREATE TABLE admin (
 
 -- DROP TABLE product
 CREATE TABLE product (
-    id INT AUTO_INCREMENT PRIMARY KEY,
+    productid INT AUTO_INCREMENT PRIMARY KEY,
     name VARCHAR(100) NOT NULL,
     type VARCHAR(20) NOT NULL,
     description TEXT,
@@ -31,7 +31,7 @@ insert into product values (5,'ee','Pizza','mno',600,NULL);
 
 -- DROP TABLE cart
 CREATE TABLE cart (
-    id INT AUTO_INCREMENT PRIMARY KEY,
+    cartid INT AUTO_INCREMENT PRIMARY KEY,
 	name VARCHAR(100) NOT NULL,
     phone VARCHAR(20) NOT NULL,
     address TEXT NOT NULL,
@@ -40,10 +40,10 @@ CREATE TABLE cart (
 
 -- DROP TABLE item
 CREATE TABLE item (
-    cart_id INT,
-    product_id INT,
+    cartid INT,
+    productid INT,
     quantity INT NOT NULL,
-    FOREIGN KEY (cart_id) REFERENCES cart(id),
-    FOREIGN KEY (product_id) REFERENCES product(id),
-    UNIQUE (cart_id, product_id)
+    FOREIGN KEY (cartid) REFERENCES cart(cartid),
+    FOREIGN KEY (productid) REFERENCES product(productid),
+    UNIQUE (cartid, productid)
 );
