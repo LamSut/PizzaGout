@@ -5,15 +5,15 @@ function itemRepository() {
 
 async function getAllItemsByCartId(cartId) {
     return itemRepository()
-        .where('cartId', cartId)
+        .where('item.cartId', cartId)
         .join('product', 'item.productId', '=', 'product.productId')
         .select('item.cartId', 'item.productId', 'product.name', 'item.quantity', 'product.price', 'product.image');
 }
 
 async function getItemByCartIdAndProductId(cartId, productId) {
     return itemRepository()
-        .where('cartId', cartId)
-        .andWhere('productId', productId)
+        .where('item.cartId', cartId)
+        .andWhere('item.productId', productId)
         .join('product', 'item.productId', '=', 'product.productId')
         .select('item.productId', 'item.quantity', 'product.name', 'product.price', 'product.image')
         .first();

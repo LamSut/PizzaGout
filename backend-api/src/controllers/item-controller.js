@@ -31,7 +31,7 @@ async function getItemByCartIdAndProductId(req, res, next) {
     try {
         const item = await itemService.getItemByCartIdAndProductId(cartId, productId);
         if (!item) {
-            return next(new ApiError(404, 'Item not found in cart'));
+            return next(new ApiError(404, 'Item not found in cart, or cart may not exists'));
         }
 
         const formattedItem = {
