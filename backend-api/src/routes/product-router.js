@@ -32,7 +32,7 @@ module.exports.setup = (app) => {
      *       - $ref: '#/components/parameters/limitParam'
      *       - $ref: '#/components/parameters/pageParam'
      *     tags:
-     *       - product
+     *       - PRODUCT
      *     responses:
      *       200:
      *         description: A list of products
@@ -69,7 +69,7 @@ module.exports.setup = (app) => {
      *     parameters:
      *       - $ref: '#/components/parameters/productIdParam'
      *     tags:
-     *       - product
+     *       - PRODUCT
      *     responses:
      *       200:
      *         description: A product
@@ -96,7 +96,7 @@ module.exports.setup = (app) => {
      *           schema:
      *             $ref: '#/components/schemas/Product'
      *     tags:
-     *       - product
+     *       - PRODUCT
      *     responses:
      *       201:
      *         description: A new product
@@ -138,7 +138,7 @@ module.exports.setup = (app) => {
      *           schema:
      *             $ref: '#/components/schemas/Product'
      *     tags:
-     *       - product
+     *       - PRODUCT
      *     responses:
      *       200:
      *         description: An updated product
@@ -164,7 +164,7 @@ module.exports.setup = (app) => {
      *     parameters:
      *       - $ref: '#/components/parameters/productIdParam'
      *     tags:
-     *       - product
+     *       - PRODUCT
      *     responses:
      *       200:
      *         description: Product deleted

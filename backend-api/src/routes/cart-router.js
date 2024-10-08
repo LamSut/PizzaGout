@@ -32,7 +32,7 @@ module.exports.setup = (app) => {
      *                 type: string
      *                 description: address
      *     tags:
-     *       - cart
+     *       - CART
      *     responses:
      *       201:
      *         description: A new cart
@@ -68,7 +68,7 @@ module.exports.setup = (app) => {
      *     parameters:
      *       - $ref: '#/components/parameters/cartIdParam'
      *     tags:
-     *       - cart
+     *       - CART
      *     responses:
      *       200:
      *         description: A cart
@@ -107,7 +107,7 @@ module.exports.setup = (app) => {
      *                 type: string
      *                 description: address
      *     tags:
-     *       - cart
+     *       - CART
      *     responses:
      *       200:
      *         description: An updated cart
@@ -133,7 +133,7 @@ module.exports.setup = (app) => {
      *     parameters:
      *       - $ref: '#/components/parameters/cartIdParam'
      *     tags:
-     *       - cart
+     *       - CART
      *     responses:
      *       200:
      *         description: Cart deleted

@@ -48,7 +48,18 @@ components:
           type: string
           description: address
     Item:
-      #HERE
+      type: object
+      properties:
+        cartId:
+          type: integer
+          readOnly: true # Returned by HTTP GET
+        productId:
+          type: integer
+          readOnly: true
+        quantity:
+          type: integer
+          required: true
+          description: quantity of item
     PaginationMetadata:
       type: object
       properties: 
@@ -104,6 +115,21 @@ components:
                 properties:
                   contact:
                     $ref: '#/components/schemas/Cart'
+    '200Item':
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              status:
+                type: string
+                description: The response status
+                enum: [success]
+              data:
+                type: object
+                properties:
+                  contact:
+                    $ref: '#/components/schemas/Item'
     '200NoData':
       content:
         application/json:
