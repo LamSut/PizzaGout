@@ -30,16 +30,16 @@ async function listProducts(req, res, next) {
 }
 
 async function getProduct(req, res, next) {
-    const { id } = req.params;
+    const { productId } = req.params;
     try {
-        const product = await productService.getProduct(id);
+        const product = await productService.getProduct(productId);
         if (!product) {
             return next(new ApiError(404, 'Product not found'));
         }
         return res.json(JSend.success({ product }));
     } catch (error) {
         console.log(error);
-        return next(new ApiError(500, `Error retrieving product with id=${id}`));
+        return next(new ApiError(500, `Error retrieving product with id=${productId}`));
     }
 }
 
@@ -57,7 +57,7 @@ async function createProduct(req, res, next) {
         return res
             .status(201)
             .set({
-                Location: `${req.baseUrl}/${product.id}`,
+                Location: `${req.baseUrl}/${product.productId}`,
             })
             .json(JSend.success({ product }));
     } catch (error) {
@@ -74,9 +74,9 @@ async function updateProduct(req, res, next) {
     if (!req.body?.name || typeof req.body.name !== 'string') {
         return next(new ApiError(400, 'Name should be a non-empty string'));
     }
-    const { id } = req.params;
+    const { productId } = req.params;
     try {
-        const updated = await productService.updateProduct(id, {
+        const updated = await productService.updateProduct(productId, {
             ...req.body,
             image: req.file ? `/public/upload/${req.file.filename}` : null,
         });
@@ -86,21 +86,21 @@ async function updateProduct(req, res, next) {
         return res.json(JSend.success({ product: updated }));
     } catch (error) {
         console.log(error);
-        return next(new ApiError(500, `Error updating product with id=${id}`));
+        return next(new ApiError(500, `Error updating product with id=${productId}`));
     }
 }
 
 async function deleteProduct(req, res, next) {
-    const { id } = req.params;
+    const { productId } = req.params;
     try {
-        const deleted = await productService.deleteProduct(id);
+        const deleted = await productService.deleteProduct(productId);
         if (!deleted) {
             return next(new ApiError(404, 'Product not found'));
         }
         return res.json(JSend.success());
     } catch (error) {
         console.log(error);
-        return next(new ApiError(500, `Could not delete product with id=${id}`));
+        return next(new ApiError(500, `Could not delete product with id=${productId}`));
     }
 }
 

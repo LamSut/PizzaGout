@@ -62,7 +62,7 @@ module.exports.setup = (app) => {
 
     /**
      * @swagger
-     * /api/v1/product/{id}:
+     * /api/v1/product/{productId}:
      *   get:
      *     summary: Get product by ID
      *     description: Get product by ID
@@ -81,7 +81,7 @@ module.exports.setup = (app) => {
      *         description: Internal Server Error
      *         $ref: '#/components/responses/500'
      */
-    router.get('/:id', productController.getProduct);
+    router.get('/:productId', productController.getProduct);
 
     /**
      * @swagger
@@ -125,7 +125,7 @@ module.exports.setup = (app) => {
 
     /**
      * @swagger
-     * /api/v1/product/{id}:
+     * /api/v1/product/{productId}:
      *   put:
      *     summary: Update product by ID
      *     description: Update product by ID
@@ -153,11 +153,11 @@ module.exports.setup = (app) => {
      *         description: Internal Server Error
      *         $ref: '#/components/responses/500'
      */
-    router.put('/:id', imageUpload, productController.updateProduct);
+    router.put('/:productId', imageUpload, productController.updateProduct);
 
     /**
      * @swagger
-     * /api/v1/product/{id}:
+     * /api/v1/product/{productId}:
      *   delete:
      *     summary: Delete product by ID
      *     description: Delete product by ID
@@ -176,9 +176,9 @@ module.exports.setup = (app) => {
      *         description: Internal Server Error
      *         $ref: '#/components/responses/500'
      */
-    router.delete('/:id', productController.deleteProduct);
+    router.delete('/:productId', productController.deleteProduct);
 
 
     router.all('/', methodNotAllowed);
-    router.all('/:id', methodNotAllowed);
+    router.all('/:productId', methodNotAllowed);
 };

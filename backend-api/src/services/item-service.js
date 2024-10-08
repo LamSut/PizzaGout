@@ -3,68 +3,68 @@ function itemRepository() {
     return knex('item');
 }
 
-async function getAllItemsByCartID(cartID) {
+async function getAllItemsByCartId(cartId) {
     return itemRepository()
-        .where('cart_id', cartID)
-        .join('product', 'item.product_id', '=', 'product.id')
-        .select('item.cart_id', 'item.product_id', 'product.name', 'item.quantity', 'product.price', 'product.image');
+        .where('cartId', cartId)
+        .join('product', 'item.productId', '=', 'product.productId')
+        .select('item.cartId', 'item.productId', 'product.name', 'item.quantity', 'product.price', 'product.image');
 }
 
-async function getItemByCartIDAndProductID(cartID, productID) {
+async function getItemByCartIdAndProductId(cartId, productId) {
     return itemRepository()
-        .where('cart_id', cartID)
-        .andWhere('product_id', productID)
-        .join('product', 'item.product_id', '=', 'product.id')
-        .select('item.product_id', 'item.quantity', 'product.name', 'product.price', 'product.image')
+        .where('cartId', cartId)
+        .andWhere('productId', productId)
+        .join('product', 'item.productId', '=', 'product.productId')
+        .select('item.productId', 'item.quantity', 'product.name', 'product.price', 'product.image')
         .first();
 }
 
-async function addItemToCart(cartID, productID, quantity) {
+async function addItemToCart(cartId, productId, quantity) {
     const newItem = {
-        cart_id: cartID,
-        product_id: productID,
+        cartId: cartId,
+        productId: productId,
         quantity: quantity,
     };
-    
+
     await itemRepository().insert(newItem);
-    
+
     return {
-        cart_id: cartID,
-        product_id: productID,
+        cartId: cartId,
+        productId: productId,
         quantity: quantity
     };
 }
 
-async function updateItemQuantity(cartID, productID, newQuantity) {
+async function updateItemQuantity(cartId, productId, newQuantity) {
     await itemRepository()
-        .where('cart_id', cartID)
-        .andWhere('product_id', productID)
+        .where('cartId', cartId)
+        .andWhere('productId', productId)
         .update({ quantity: newQuantity });
 
     return {
-        cart_id: cartID,
-        product_id: productID,
+        cartId: cartId,
+        productId: productId,
         quantity: newQuantity
     };
 }
 
-async function deleteItemFromCart(cartID, productID) {
+async function deleteItemFromCart(cartId, productId) {
     const deleted = await itemRepository()
-        .where('cart_id', cartID)
-        .andWhere('product_id', productID)
+        .where('cartId', cartId)
+        .andWhere('productId', productId)
         .del();
 
     if (!deleted) {
         return null;
     }
 
-    return { cart_id: cartID, product_id: productID };
+    return { cartId: cartId, productId: productId };
 }
 
 
 module.exports = {
-    getAllItemsByCartID,
-    getItemByCartIDAndProductID,
+    getAllItemsByCartId,
+    getItemByCartIdAndProductId,
     addItemToCart,
     updateItemQuantity,
     deleteItemFromCart

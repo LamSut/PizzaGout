@@ -9,16 +9,16 @@ const upload = multer();
 module.exports.setup = (app) => {
     app.use('/api/v1/cart', router);
 
-    router.get('/:cartID/product', itemController.getAllItemsByCartID);
+    router.get('/:cartId/product', itemController.getAllItemsByCartId);
 
-    router.get('/:cartID/product/:productID', itemController.getItemByCartIDAndProductID);
+    router.get('/:cartId/product/:productId', itemController.getItemByCartIdAndProductId);
 
-    router.post('/:cartID/product/:productID', itemController.addItemToCart);
+    router.post('/:cartId/product/:productId', itemController.addItemToCart);
 
-    router.put('/:cartID/product/:productID', itemController.updateItemQuantity);
+    router.put('/:cartId/product/:productId', itemController.updateItemQuantity);
 
-    router.delete('/:cartID/product/:productID', itemController.deleteItemFromCart)
+    router.delete('/:cartId/product/:productId', itemController.deleteItemFromCart)
 
-    router.all('/:cartID/product', methodNotAllowed);
-    router.all('/:cartID/product/:productID', methodNotAllowed);
+    router.all('/:cartId/product', methodNotAllowed);
+    router.all('/:cartId/product/:productId', methodNotAllowed);
 }

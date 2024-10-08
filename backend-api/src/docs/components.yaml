@@ -4,7 +4,7 @@ components:
     Product:
       type: object
       properties:
-        id:
+        productId:
           type: integer
           readOnly: true # Returned by HTTP GET
         name:
@@ -35,7 +35,7 @@ components:
     Cart:
       type: object
       properties:
-        id:
+        cartId:
           type: integer
           readOnly: true # Returned by HTTP GET
         name:
@@ -166,7 +166,7 @@ components:
                 type: object
   parameters:
     productIdParam:
-      name: id
+      name: productId
       description: Product ID
       required: true
       in: path
@@ -174,7 +174,7 @@ components:
         type: integer
     
     cartIdParam:
-      name: id
+      name: cartId
       description: Cart ID
       required: true
       in: path

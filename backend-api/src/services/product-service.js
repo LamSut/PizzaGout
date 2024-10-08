@@ -28,8 +28,8 @@ async function listProducts(query) {
             }
         })
         .select(
-            knex.raw('count(id) OVER() AS recordCount'),
-            'id',
+            knex.raw('count(productId) OVER() AS recordCount'),
+            'productId',
             'name',
             'type',
             'description',
@@ -50,20 +50,20 @@ async function listProducts(query) {
     };
 }
 
-async function getProduct(id) {
-    return productRepository().where('id', id).select('*').first();
+async function getProduct(productId) {
+    return productRepository().where('productId', productId).select('*').first();
 }
 
 async function createProduct(payload) {
     const product = readProduct(payload);
-    const [id] = await productRepository().insert(product);
-    return { id, ...product };
+    const [productId] = await productRepository().insert(product);
+    return { productId, ...product };
 }
 
 const { unlink } = require('node:fs');
-async function updateProduct(id, payload) {
+async function updateProduct(productId, payload) {
     const updatedProduct = await productRepository()
-        .where('id', id)
+        .where('productId', productId)
         .select('*')
         .first();
     if (!updatedProduct) {
@@ -73,7 +73,7 @@ async function updateProduct(id, payload) {
     if (!update.image) {
         delete update.image;
     }
-    await productRepository().where('id', id).update(update);
+    await productRepository().where('productId', productId).update(update);
     if (
         update.image &&
         updatedProduct.image &&
@@ -85,15 +85,15 @@ async function updateProduct(id, payload) {
     return { ...updatedProduct, ...update };
 }
 
-async function deleteProduct(id) {
+async function deleteProduct(productId) {
     const deletedProduct = await productRepository()
-        .where('id', id)
+        .where('productId', productId)
         .select('image')
         .first();
     if (!deletedProduct) {
         return null;
     }
-    await productRepository().where('id', id).del();
+    await productRepository().where('productId', productId).del();
     if (
         deletedProduct.image &&
         deletedProduct.image.startsWith('/public/upload')

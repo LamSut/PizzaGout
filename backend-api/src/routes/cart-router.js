@@ -61,7 +61,7 @@ module.exports.setup = (app) => {
 
     /**
      * @swagger
-     * /api/v1/cart/{id}:
+     * /api/v1/cart/{cartId}:
      *   get:
      *     summary: Get cart by ID
      *     description: Get cart by ID
@@ -80,11 +80,11 @@ module.exports.setup = (app) => {
      *         description: Internal Server Error
      *         $ref: '#/components/responses/500'
      */
-    router.get('/:id', cartController.getCart);
+    router.get('/:cartId', cartController.getCart);
 
     /**
      * @swagger
-     * /api/v1/cart/{id}:
+     * /api/v1/cart/{cartId}:
      *   put:
      *     summary: Update cart by ID
      *     description: Update cart by ID
@@ -122,11 +122,11 @@ module.exports.setup = (app) => {
      *         description: Internal Server Error
      *         $ref: '#/components/responses/500'
      */
-    router.put('/:id', upload.none(), cartController.updateCart);
+    router.put('/:cartId', upload.none(), cartController.updateCart);
 
     /**
      * @swagger
-     * /api/v1/cart/{id}:
+     * /api/v1/cart/{cartId}:
      *   delete:
      *     summary: Delete cart by ID
      *     description: Delete cart by ID
@@ -145,8 +145,8 @@ module.exports.setup = (app) => {
      *         description: Internal Server Error
      *         $ref: '#/components/responses/500'
      */
-    router.delete('/:id', cartController.deleteCart);
+    router.delete('/:cartId', cartController.deleteCart);
 
     router.all('/', methodNotAllowed);
-    router.all('/:id', methodNotAllowed);
+    router.all('/:cartId', methodNotAllowed);
 }

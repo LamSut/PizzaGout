@@ -1,8 +1,8 @@
 const knex = require('../database/knex');
-function cartRepository(){
+function cartRepository() {
     return knex('cart');
 }
-function itemRepository(){
+function itemRepository() {
     return knex('item');
 }
 
@@ -16,42 +16,42 @@ function readCart(payload) {
 
 async function createCart(payload) {
     const cart = readCart(payload);
-    const [id] = await cartRepository().insert(cart);
-    return { id, ...cart };
+    const [cartId] = await cartRepository().insert(cart);
+    return { cartId, ...cart };
 }
 
-async function getCart(id) {
-    return cartRepository().where('id', id).select('*').first();
+async function getCart(cartId) {
+    return cartRepository().where('cartId', cartId).select('*').first();
 }
 
-async function updateCart(id, payload) {
+async function updateCart(cartId, payload) {
     const existingCart = await cartRepository()
-        .where('id', id)
+        .where('cartId', cartId)
         .select('*')
         .first();
     if (!existingCart) {
         return null;
     }
     const update = readCart(payload);
-    await cartRepository().where('id', id).update(update);
+    await cartRepository().where('cartId', cartId).update(update);
     return { ...existingCart, ...update };
 }
 
-async function deleteCart(id) {
+async function deleteCart(cartId) {
     const deletedCart = await cartRepository()
-        .where('id', id)
+        .where('cartId', cartId)
         .select('*')
         .first();
-        
+
     if (!deletedCart) {
         return null;
     }
-    
-    await itemRepository()
-    .where('cart_id', id)
-    .del();
 
-    await cartRepository().where('id', id).del();
+    await itemRepository()
+        .where('cartId', cartId)
+        .del();
+
+    await cartRepository().where('cartId', cartId).del();
     return deletedCart;
 }
 

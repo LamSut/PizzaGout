@@ -15,7 +15,7 @@ async function createCart(req, res, next) {
         return res
             .status(201)
             .set({
-                Location: `${req.baseUrl}/${cart.id}`,
+                Location: `${req.baseUrl}/${cart.cartId}`,
             })
             .json(JSend.success({ cart }));
     } catch (error) {
@@ -25,21 +25,21 @@ async function createCart(req, res, next) {
 }
 
 async function getCart(req, res, next) {
-    const { id } = req.params;
+    const { cartId } = req.params;
     try {
-        const cart = await cartService.getCart(id);
+        const cart = await cartService.getCart(cartId);
         if (!cart) {
             return next(new ApiError(404, 'Cart not found'));
         }
         return res.json(JSend.success({ cart }));
     } catch (error) {
         console.log(error);
-        return next(new ApiError(500, `Error retrieving cart with id=${id}`));
+        return next(new ApiError(500, `Error retrieving cart with id=${cartId}`));
     }
 }
 
 async function updateCart(req, res, next) {
-    const { id } = req.params;
+    const { cartId } = req.params;
     const cartUpdates = {
         name: req.body.name,
         phone: req.body.phone,
@@ -54,7 +54,7 @@ async function updateCart(req, res, next) {
     }
 
     try {
-        const updatedCart = await cartService.updateCart(id, cartUpdates);
+        const updatedCart = await cartService.updateCart(cartId, cartUpdates);
         if (!updatedCart) {
             return res.status(404).json({
                 status: 'fail',
@@ -74,16 +74,16 @@ async function updateCart(req, res, next) {
 }
 
 async function deleteCart(req, res, next) {
-    const { id } = req.params;
+    const { cartId } = req.params;
     try {
-        const deleted = await cartService.deleteCart(id);
+        const deleted = await cartService.deleteCart(cartId);
         if (!deleted) {
             return next(new ApiError(404, 'Cart not found'));
         }
         return res.json(JSend.success());
     } catch (error) {
         console.log(error);
-        return next(new ApiError(500, `Could not delete cart with id=${id}`));
+        return next(new ApiError(500, `Could not delete cart with id=${cartId}`));
     }
 }
 
