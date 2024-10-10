@@ -54,6 +54,9 @@ module.exports.setup = (app) => {
      *                         $ref: '#/components/schemas/Product'
      *                     metadata:
      *                       $ref: '#/components/schemas/PaginationMetadata'
+     *       404:
+     *         description: Product not found
+     *         $ref: '#/components/responses/404'
      *       500:
      *         description: Internal Server Error
      *         $ref: '#/components/responses/500'

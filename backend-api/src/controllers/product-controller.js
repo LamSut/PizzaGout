@@ -11,10 +11,15 @@ async function listProducts(req, res, next) {
             lastPage: 1,
             page: 1,
             limit: 6,
-        }
+        },
     };
     try {
         result = await productService.listProducts(req.query);
+        if (result.products.length === 0) {
+            return next(
+                new ApiError(404, 'Product not found')
+            );
+        }
     } catch (error) {
         console.log(error);
         return next(
