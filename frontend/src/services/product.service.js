@@ -22,6 +22,7 @@ async function efetch(url, options = {}) {
 
 function makeProductService() {
     const baseUrl = '/api/v1/product';
+
     async function fetchProducts(page, limit = 6) {
         let url = `${baseUrl}?page=${page}&limit=${limit}`;
         const data = await efetch(url);
@@ -33,6 +34,7 @@ function makeProductService() {
         });
         return data;
     }
+
     async function fetchProduct(productId) {
         const { product } = await efetch(`${baseUrl}/${productId}`);
         return {
@@ -40,37 +42,44 @@ function makeProductService() {
             image: product.image ?? DEFAULT_IMAGE
         };
     }
-    async function createProduct(product) {
-        return efetch(baseUrl, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(product),
-        });
-    }
-    async function deleteAllProducts() {
-        return efetch(baseUrl, {
-            method: 'DELETE',
-        });
-    }
-    async function updateProduct(product) {
-        return efetch(`${baseUrl}/${product.productId}`, {
-            method: 'PUT',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(product),
-        });
-    }
-    async function deleteProduct(productId) {
-        return efetch(`${baseUrl}/${productId}`, {
-            method: 'DELETE',
-        });
-    }
+
+    // This project is User interface, so no write Products
+
+    // async function createProduct(product) {
+    //     return efetch(baseUrl, {
+    //         method: 'POST',
+    //         headers: { 'Content-Type': 'application/json' },
+    //         body: JSON.stringify(product),
+    //     });
+    // }
+
+    // async function deleteAllProducts() {
+    //     return efetch(baseUrl, {
+    //         method: 'DELETE',
+    //     });
+    // }
+
+    // async function updateProduct(product) {
+    //     return efetch(`${baseUrl}/${product.productId}`, {
+    //         method: 'PUT',
+    //         headers: { 'Content-Type': 'application/json' },
+    //         body: JSON.stringify(product),
+    //     });
+    // }
+
+    // async function deleteProduct(productId) {
+    //     return efetch(`${baseUrl}/${productId}`, {
+    //         method: 'DELETE',
+    //     });
+    // }
+
     return {
         fetchProducts,
         fetchProduct,
-        createProduct,
-        updateProduct,
-        deleteProduct,
-        deleteAllProducts,
+        // createProduct,
+        // updateProduct,
+        // deleteProduct,
+        // deleteAllProducts,
     };
 }
 export default makeProductService();
