@@ -1,7 +1,7 @@
 module.exports = {
   apps: [
     {
-      name: 'contact-api',
+      name: 'pizza-api',
       instances: 4,
       script: 'server.js',
       autorestart: true,
