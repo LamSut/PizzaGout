@@ -8,6 +8,8 @@ export default function useCart() {
     const route = useRoute();
     const queryClient = useQueryClient();
 
+    //CART INFORMATION
+
     function fetchCartInformation(id) {
         const { data: cart, error } = useQuery({
             queryKey: ["carts", id],
@@ -71,21 +73,27 @@ export default function useCart() {
         },
     })
 
-    function fetchCarts(page) {
-        const { data: cartsPage, ...rest } = useQuery({
-            queryKey: ["carts", page],
-            queryFn: () => cartService.fetchCarts(page.value),
+    //ITEMS IN CART
+
+    function fetchItemsInCart(cartId) {
+        const { data: items, ...rest } = useQuery({
+            queryKey: ["items"],
+            queryFn: () => cartService.fetchItemsInCart(cartId),
         });
-
-        const totalPages = computed(() => (cartsPage.value?.metadata?.lastPage ?? 1));
-        const carts = computed(() => (cartsPage.value?.carts ?? []));
-
-        return { totalPages, carts, rest };
+        return { items, rest };
     }
 
-    const deleteAllCartsMutation = useMutation({
-        mutationFn: cartService.deleteAllCarts,
-        onSuccess: (data) => queryClient.setQueriesData(["carts"], data),
+    const addItemMutation = useMutation({
+        mutationFn: cartService.addItemToCart,
+        onSuccess: (data) => {
+            queryClient.setQueryData(["items"], (oldData) => {
+                if (!oldData) return data;
+                return {
+                    ...oldData,
+                    carts: [...oldData.carts, data],
+                };
+            });
+        },
         onError: (error) => {
             console.error('Error updating cart:', error);
         },
@@ -97,8 +105,8 @@ export default function useCart() {
         updateCartInformation: updateCartMutation.mutate,
         deleteCart: deleteCartMutation.mutate,
 
-        fetchCarts,
-        deleteAllCarts: deleteAllCartsMutation.mutate
+        fetchItemsInCart,
+        addItemToCart: addItemMutation.mutate
     }
 
 }
