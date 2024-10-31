@@ -22,7 +22,7 @@ async function efetch(url, options = {}) {
 function makeCartService() {
     const baseUrl = '/api/v1/cart';
 
-    async function fetchCart(cartId) {
+    async function fetchCartInformation(cartId) {
         const { cart } = await efetch(`${baseUrl}/${cartId}`);
         return cart;
     }
@@ -35,23 +35,63 @@ function makeCartService() {
         });
     }
 
-    async function updateCart(cart) {
+    async function updateCartInformation(cart) {
         return efetch(`${baseUrl}/${cart.cartId}`, {
             method: 'PUT',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(cart),
         });
     }
+
     async function deleteCart(cartId) {
         return efetch(`${baseUrl}/${cartId}`, {
             method: 'DELETE',
         });
     }
+
+    async function fetchItemsInCart(cartId) {
+        const { data } = await efetch(`${baseUrl}/${cartId}/product`);
+        return data;
+    }
+
+    // async function fetchItemInCart(cartId, itemId) {
+    //     const { item } = await efetch(`${baseUrl}/${cartId}/product/${itemId}`);
+    //     return item;
+    // }
+
+    async function addItemToCart(item) {
+        return efetch(`${baseUrl}/${item.cartId}/product/${item.productId}`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(item),
+        });
+    }
+
+    // async function updateItemInCart(item) {
+    //     return efetch(`${baseUrl}/${item.cartId}/product/${item.productId}`, {
+    //         method: 'PUT',
+    //         headers: { 'Content-Type': 'application/json' },
+    //         body: JSON.stringify(item),
+    //     });
+    // }
+
+    // async function deleteItemInCart(cartId, productId) {
+    //     return efetch(`${baseUrl}/${cartId}/product/${productId}`, {
+    //         method: 'DELETE',
+    //     });
+    // }
+
     return {
-        fetchCart,
-        createCart,
-        updateCart,
-        deleteCart,
+        fetchCartInformation, //Xem thong tin ng dung
+        createCart, //Ng dung tao gio hang
+        updateCartInformation, //Cap nhat thong tin ng dung
+        deleteCart, //Huy don hang
+
+        fetchItemsInCart,
+        // fetchItemInCart,
+        addItemToCart,
+        // updateItemInCart,
+        // deleteItemInCart,
     };
 }
 export default makeCartService();
