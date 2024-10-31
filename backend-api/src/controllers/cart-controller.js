@@ -12,6 +12,18 @@ async function createCart(req, res, next) {
             ...req.body,
         });
 
+        if (req.session) {
+            req.session.cartId = cart.cartId;
+            req.session.save((saveError) => {
+                if (saveError) {
+                    console.error('Error saving cartId to session:', saveError);
+                    return next(new ApiError(500, 'An error occurred while creating the cart'));
+                }
+            });
+        } else {
+            console.warn('Session middleware is not enabled.');
+        }
+
         return res
             .status(201)
             .set({
@@ -26,6 +38,7 @@ async function createCart(req, res, next) {
 
 async function getCart(req, res, next) {
     const { cartId } = req.params;
+    // console.log('cartId from session:', req.session.cartId);
     try {
         const cart = await cartService.getCart(cartId);
         if (!cart) {
