@@ -1,0 +1,16 @@
+localhost {
+	root * dist
+	file_server
+
+	handle /api/* {
+		reverse_proxy localhost:3000
+	}
+
+	handle /public/* {
+		reverse_proxy localhost:3000
+	}
+
+	handle {
+		try_files {path} index.html
+	}
+}
