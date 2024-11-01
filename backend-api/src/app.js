@@ -1,6 +1,6 @@
 const express = require('express');
 const cors = require('cors');
-const session = require('./middlewares/session');
+const session = require('./middlewares/session-storage');
 
 const JSend = require('./jsend');
 const productRouter = require('./routes/product-router');
