@@ -6,14 +6,14 @@
       >View Menu</a
     > -->
     <router-link to="/menu" class="btn btn-danger me-2 fs-6">START BOOKING</router-link>
-    <a href="#" class="btn btn-custom fs-6">VIEW YOUR ORDER</a>
+    <router-link to="/form" class="btn btn-custom me-2 fs-6">YOUR LOCATION</router-link>
   </div>
 </template>
 <style>
 .btn-custom {
-  background-color: rgb(165, 14, 14);
+  background-color: rgb(128, 0, 0);
   color: white;
-  --bs-btn-active-bg: rgb(165, 14, 14);
+  --bs-btn-active-bg: rgb(128, 0, 0);
 }
 
 .btn-custom:hover {

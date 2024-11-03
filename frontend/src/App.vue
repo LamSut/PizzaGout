@@ -1,9 +1,9 @@
 <script setup>
 import AppHeader from '@/components/AppHeader.vue';
 </script>
-<template v-if="route.name === 'pizza'">
+<template>
   <AppHeader />
-  <div class="container mt-3">
+  <div class="container mt-0">
     <router-view />
   </div>
 </template>

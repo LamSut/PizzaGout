@@ -3,7 +3,7 @@ import MainpageButtons from '@/components/MainpageButtons.vue';
 import MainCarousel from '@/components/MainCarousel.vue';
 </script>
 <template>
-  <h2 class="text-center fw-bold">WELCOME TO PIZZA STORE</h2>
+  <h2 class="text-center fw-bold mt-3">WELCOME TO PIZZA STORE</h2>
   <MainpageButtons />
   <hr />
   <MainCarousel />
