@@ -42,7 +42,7 @@ function makeCartService() {
     }
 
     async function updateCartInformation(cart) {
-        return efetch(`${baseUrl}/${cart.cartId}`, {
+        return efetch(`${baseUrl}/${cart.cartid}`, {
             method: 'PUT',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(cart),

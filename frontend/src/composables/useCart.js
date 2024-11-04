@@ -12,19 +12,12 @@ export default function useCart() {
 
     function fetchCartInformation(id) {
         const { data: cart, error } = useQuery({
-            queryKey: ["carts", id],
+            queryKey: ["carts"],
             queryFn: async () => {
                 try {
-                    return await cartService.fetchInformation(id);
+                    return await cartService.fetchCartInformation(id);
                 } catch (error) {
                     console.error("Error fetching cart:", error);
-                    router.push({
-                        name: 'notfound',
-                        params: { pathMatch: route.path.split('/').slice(1) },
-                        query: route.query,
-                        hash: route.hash,
-                    });
-                    return null;
                 }
             }
         });

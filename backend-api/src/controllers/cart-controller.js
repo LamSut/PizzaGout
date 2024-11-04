@@ -38,7 +38,6 @@ async function createCart(req, res, next) {
 
 async function getCart(req, res, next) {
     const { cartId } = req.params;
-    // console.log('cartId from session:', req.session.cartId);
     try {
         const cart = await cartService.getCart(cartId);
         if (!cart) {

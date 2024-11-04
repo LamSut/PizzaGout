@@ -1,22 +1,22 @@
 import { createWebHistory, createRouter } from 'vue-router';
-import PizzaPage from '@/views/PizzaPage.vue';
-import Menu from '@/views/Menu.vue';
-import Form from '@/views/Form.vue';
+import MainPage from '@/views/MainPage.vue';
+import MenuPage from '@/views/MenuPage.vue';
+import InformationPage from '@/views/InformationPage.vue';
 const routes = [
   {
     path: '/',
-    name: 'pizza',
-    component: PizzaPage
+    name: 'MainPage',
+    component: MainPage
   },
   {
     path: '/menu',
-    name: 'Menu',
-    component: Menu
+    name: 'MenuPage',
+    component: MenuPage
   },
   {
-    path: '/form',
-    name: 'Form',
-    component: Form
+    path: '/information',
+    name: 'InformationPage',
+    component: InformationPage
   }
 ];
 const router = createRouter({
