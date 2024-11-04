@@ -53,9 +53,9 @@ function submitCartInformation() {
     <div v-if="showPopup" class="custom-popup">
         <div class="popup-content">
             <h5>Success!</h5>
-            <p>Your information has been added successfully!</p>
+            <p>Your information has been updated successfully!</p>
             <button @click="$emit('close-popup')" class="btn btn-warning">
-                <router-link to="/menu" class="link-danger fs-5 fw-bold">Let's order some pizza...</router-link>
+                <a href="/menu" class="link-danger fs-5 fw-bold">Let's order some pizza...</a>
             </button>
         </div>
     </div>

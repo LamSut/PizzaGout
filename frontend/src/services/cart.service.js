@@ -50,7 +50,7 @@ function makeCartService() {
     }
 
     async function deleteCart(cartId) {
-        return efetch(`${baseUrl}/${cartId}`, {
+        return efetch(`${baseUrl}/${cartid}`, {
             method: 'DELETE',
         });
     }
@@ -66,7 +66,7 @@ function makeCartService() {
     // }
 
     async function addItemToCart(item) {
-        return efetch(`${baseUrl}/${item.cartId}/product/${item.productId}`, {
+        return efetch(`${baseUrl}/${item.cartid}/product/${item.productid}`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(item),

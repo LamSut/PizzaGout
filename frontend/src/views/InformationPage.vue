@@ -24,9 +24,6 @@ let cart = ref({
 if (cartStore.cartId) {
     cart = fetchCartInformation(cartStore.cartId);
 }
-console.log(cart.value);
-//value fetch after modify code
-
 
 async function onCart(cart) {
     try {
@@ -46,6 +43,11 @@ async function onCart(cart) {
 }
 </script>
 <template>
-    <h2 class="text-center fw-bold mt-3">CUSTOMER INFOMATION FORM</h2>
-    <InfomationForm :cart="cart" :show-popup="showPopup" @submit:cart="onCart" />
+    <div v-if="cart">
+        <h2 class="text-center fw-bold mt-3">CUSTOMER INFOMATION FORM</h2>
+        <InfomationForm :cart="cart" :show-popup="showPopup" @submit:cart="onCart" />
+    </div>
+    <div v-else>
+        Loading cart information...
+    </div>
 </template>
