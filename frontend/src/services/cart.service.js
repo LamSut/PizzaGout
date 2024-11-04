@@ -20,6 +20,12 @@ async function efetch(url, options = {}) {
 }
 
 function makeCartService() {
+
+    async function sessionCartId() {
+        const { cartId } = await efetch(`/api/v1`);
+        return cartId;
+    }
+
     const baseUrl = '/api/v1/cart';
 
     async function fetchCartInformation(cartId) {
@@ -82,6 +88,7 @@ function makeCartService() {
     // }
 
     return {
+        sessionCartId,
         fetchCartInformation, //Xem thong tin ng dung
         createCart, //Ng dung tao gio hang
         updateCartInformation, //Cap nhat thong tin ng dung

@@ -90,7 +90,6 @@ export default {
 
 .custom-border {
     background-color: #212529;
-    border: 3px solid black;
     border-radius: 2%;
     height: fit-content;
 }

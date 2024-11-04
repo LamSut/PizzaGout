@@ -23,9 +23,9 @@ export default {
   data() {
     return {
       slides: [
-        { image: '/1.jpeg', alt: 'First slide' },
+        { image: '/1.jpg', alt: 'First slide' },
         { image: '/2.jpg', alt: 'Second slide' },
-        { image: '/1.jpg', alt: 'Second slide' }
+        { image: '/3.jpg', alt: 'Second slide' }
       ]
     };
   }

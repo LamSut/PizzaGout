@@ -1,5 +1,5 @@
 <template>
-  <nav class="navbar navbar-expand-lg text-bg-dark pt-4">
+  <nav class="navbar navbar-expand-lg text-bg-dark">
     <div class="container-fluid mt-0">
       <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav justify-content-around">
@@ -37,6 +37,10 @@ export default {
   border-radius: 5%;
 }
 
+.nav-item {
+  border-radius: 5%;
+}
+
 .nav-link {
   font-size: 1.25rem;
   padding: 5px 50px !important;
@@ -51,6 +55,7 @@ export default {
   position: absolute;
   left: 0;
   padding-left: 50px;
+  padding-top: 0px;
   width: 100%;
 }
 </style>

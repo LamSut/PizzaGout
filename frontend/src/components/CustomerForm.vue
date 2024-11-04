@@ -1,11 +1,12 @@
 <script setup>
+import { ref } from 'vue';
 import { Form, Field, ErrorMessage } from 'vee-validate';
 import { toTypedSchema } from '@vee-validate/zod';
 import { z } from 'zod';
-import cartService from '@/services/cart.service';
 
 const props = defineProps({
-    cart: { type: Object, required: true }
+    cart: { type: Object, required: true },
+    showPopup: { type: Boolean, required: true }
 });
 
 const $emit = defineEmits(['submit:cart']);
@@ -21,25 +22,13 @@ let validationSchema = toTypedSchema(
 );
 
 async function submitCustomerForm(values) {
-    let formData = new FormData();
-    for (let key in values) {
-        if (values[key] !== undefined) {
-            formData.append(key, values[key]);
-        }
-    }
+    const cartData = {
+        name: values.name,
+        address: values.address,
+        phone: values.phone,
+    };
 
-    // $emit('submit:cart', formData);
-    const cartData = Object.fromEntries(formData.entries());
-
-    try {
-        const response = await cartService.createCart(cartData);
-        console.log('Cart created successfully:', response);
-        window.alert('Your infomation has been added.');
-        window.location.href = './';
-        $emit('submit:cart', response);
-    } catch (error) {
-        console.error('Error creating cart:', error.message);
-    }
+    $emit('submit:cart', cartData);
 }
 </script>
 
@@ -66,4 +55,46 @@ async function submitCustomerForm(values) {
             </div>
         </div>
     </form>
+    <div v-if="showPopup" class="custom-popup">
+        <div class="popup-content">
+            <h5>Success!</h5>
+            <p>Your information has been added successfully!</p>
+            <button @click="$emit('close-popup')" class="btn btn-warning">
+                <a href="/" class="link-danger fs-5 fw-bold">Let's order some pizza...</a>
+            </button>
+        </div>
+    </div>
 </template>
+<style scoped>
+.custom-popup {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.7);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.popup-content {
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+    text-align: center;
+}
+
+.popup-content h5 {
+    margin-bottom: 15px;
+}
+
+.popup-content button {
+    margin-top: 10px;
+}
+
+.link-danger {
+    text-decoration: none;
+}
+</style>
