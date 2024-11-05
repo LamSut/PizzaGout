@@ -14,7 +14,7 @@ const routes = [
     component: MenuPage
   },
   {
-    path: '/information',
+    path: '/info',
     name: 'InformationPage',
     component: InformationPage
   }

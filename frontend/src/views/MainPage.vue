@@ -1,6 +1,7 @@
 <script setup>
 import MainPageButtons from '@/components/MainPageButtons.vue';
 import MainCarousel from '@/components/MainCarousel.vue';
+
 import { ref, onMounted } from 'vue';
 import { useCartStore } from '@/store/cartStore'
 
@@ -9,7 +10,6 @@ onMounted(() => {
   cartStore.fetchCartId()
   console.log(cartStore.cartId)
 })
-
 
 </script>
 <template>

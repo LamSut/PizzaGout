@@ -1,13 +1,18 @@
 <script setup>
 import InfomationForm from '@/components/InfomationForm.vue';
+
 import { ref, onMounted } from 'vue';
+import { useRouter } from 'vue-router';
 import { useCartStore } from '@/store/cartStore'
 import useCart from '@/composables/useCart';
 
+const router = useRouter();
 const cartStore = useCartStore()
 onMounted(() => {
     cartStore.fetchCartId()
     console.log(cartStore.cartId)
+    if (cartStore.cartId == null)
+        router.push('/');
 })
 
 const showPopup = ref(false);
