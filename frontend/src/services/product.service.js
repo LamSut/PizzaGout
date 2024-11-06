@@ -26,7 +26,7 @@ function makeProductService() {
     async function fetchProducts(page, limit = 6) {
         let url = `${baseUrl}?page=${page}&limit=${limit}`;
         const data = await efetch(url);
-        data.product = data.product.map((product) => {
+        data.products = data.products.map((product) => {
             return {
                 ...product,
                 image: product.image ?? DEFAULT_IMAGE

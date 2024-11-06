@@ -54,9 +54,11 @@ function submitCartInformation() {
         <div class="popup-content">
             <h5>Success!</h5>
             <p>Your information has been updated successfully!</p>
-            <button @click="$emit('close-popup')" class="btn btn-warning">
-                <a href="/menu" class="link-danger fs-5 fw-bold">Let's order some pizza...</a>
-            </button>
+            <a href="/">
+                <button class="btn btn-warning">
+                    <a class="link-danger fs-5 fw-bold">Let's order some pizza...</a>
+                </button>
+            </a>
         </div>
     </div>
 </template>

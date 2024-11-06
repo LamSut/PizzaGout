@@ -1,5 +1,10 @@
 <script setup>
 import AppHeader from '@/components/AppHeader.vue';
+import { useCartStore } from '@/store/cartStore'
+
+const cartStore = useCartStore()
+cartStore.fetchCartId()
+
 </script>
 
 <template>
