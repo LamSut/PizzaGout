@@ -44,7 +44,7 @@ const pages = computed(() => {
 </script>
 
 <template>
-  <nav>
+  <nav class="navPagination">
     <ul class="pagination">
       <li class="page-item" :class="{ disabled: currentPage === 1 }">
         <a role="button" class="page-link" @click.prevent="$emit('update:currentPage', currentPage - 1)">
@@ -87,5 +87,10 @@ const pages = computed(() => {
   display: flex;
   justify-content: center;
   align-items: center;
+  margin: auto;
+}
+
+.navPagination {
+  margin: auto;
 }
 </style>

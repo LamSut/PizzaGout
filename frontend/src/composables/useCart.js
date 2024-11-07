@@ -79,13 +79,7 @@ export default function useCart() {
   const addItemMutation = useMutation({
     mutationFn: cartService.addItemToCart,
     onSuccess: (data) => {
-      queryClient.setQueryData(['items'], (oldData) => {
-        if (!oldData) return data;
-        return {
-          ...oldData,
-          carts: [...oldData.carts, data]
-        };
-      });
+      queryClient.setQueryData(['items'], (data));
     },
     onError: (error) => {
       console.error('Error updating cart:', error);

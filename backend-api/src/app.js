@@ -27,6 +27,12 @@ app.get('/api/v1', (req, res) => {
     res.json(JSend.success({ cartId }));
 });
 
+app.get('/api/v1/clear', (req, res) => {
+    req.session.cartId = 0;
+    const cartId = req.session.cartId;
+    res.json(JSend.success({ cartId }));
+});
+
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(specs));
 app.use('/public', express.static('public'));
 

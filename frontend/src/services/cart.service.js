@@ -26,6 +26,11 @@ function makeCartService() {
         return cartId;
     }
 
+    async function clearCartId() {
+        const { cartId } = await efetch(`/api/v1/clear`);
+        return cartId;
+    }
+
     const baseUrl = '/api/v1/cart';
 
     async function fetchCartInformation(cartId) {
@@ -89,6 +94,7 @@ function makeCartService() {
 
     return {
         sessionCartId,
+        clearCartId,
         fetchCartInformation, //Xem thong tin ng dung
         createCart, //Ng dung tao gio hang
         updateCartInformation, //Cap nhat thong tin ng dung
