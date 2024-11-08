@@ -41,6 +41,8 @@ function decreaseQuantity(item) {
 }
 </script>
 <template>
+    <br>
+    <h4 class="mb-4 text-center">Your cart</h4>
     <div>
         <router-link to="/info">
             <button class="edit-btn btn btn-danger fw-bold">Edit Infomation</button>
@@ -75,7 +77,7 @@ function decreaseQuantity(item) {
         <hr>
         <button class="pay-btn btn btn-success fw-bold" @click="orderItems">Order</button>
         <button class="delete-btn btn btn-danger fw-bold" @click="itemStore.clearItems">
-            Delete all fromcarts
+            Delete all from carts
         </button>
     </div>
 </template>

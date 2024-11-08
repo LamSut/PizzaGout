@@ -81,7 +81,7 @@ components:
           description: The current page
         limit: 
           type: integer
-          default: 6
+          default: 8
           description: The number of records per page
 
   responses:

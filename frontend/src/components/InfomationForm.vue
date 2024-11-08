@@ -46,7 +46,7 @@ function submitCartInformation() {
         </div>
         <div class="row mb-3">
             <div class="col-sm-10 offset-sm-3">
-                <button type="submit" class="btn btn-success mt-2 mx-auto px-5">LET'S GO PIZZA</button>
+                <button type="submit" class="btn btn-success mt-2 mx-auto px-5"><b>LET'S GO PIZZA</b></button>
             </div>
         </div>
     </form>

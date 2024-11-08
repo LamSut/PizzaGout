@@ -1,7 +1,7 @@
 <template>
   <div class="d-flex justify-content-center pt-2">
-    <router-link to="/menu" class="btn btn-danger me-2 fs-6">START BOOKING</router-link>
-    <router-link to="/info" class="btn btn-custom me-2 fs-6">ENTER INFORMATION</router-link>
+    <router-link to="/menu" class="btn btn-danger me-2 fs-6"><b>START BOOKING</b></router-link>
+    <router-link to="/info" class="btn btn-custom me-2 fs-6"><b>ENTER INFORMATION</b></router-link>
   </div>
 </template>
 <style>

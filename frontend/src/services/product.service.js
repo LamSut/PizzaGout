@@ -23,7 +23,7 @@ async function efetch(url, options = {}) {
 function makeProductService() {
     const baseUrl = '/api/v1/product';
 
-    async function fetchProducts(page, limit = 6) {
+    async function fetchProducts(page, limit = 8) {
         let url = `${baseUrl}?page=${page}&limit=${limit}`;
         const data = await efetch(url);
         data.products = data.products.map((product) => {

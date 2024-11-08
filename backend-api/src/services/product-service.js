@@ -16,7 +16,7 @@ function readProduct(payload) {
 
 const Paginator = require('./paginator');
 async function listProducts(query) {
-    const { name, type, page = 1, limit = 6 } = query;
+    const { name, type, page = 1, limit = 8 } = query;
     const paginator = new Paginator(page, limit);
     let results = await productRepository()
         .where((builder) => {

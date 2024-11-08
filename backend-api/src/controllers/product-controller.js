@@ -10,7 +10,7 @@ async function listProducts(req, res, next) {
             firstPage: 1,
             lastPage: 1,
             page: 1,
-            limit: 6,
+            limit: 8,
         },
     };
     try {

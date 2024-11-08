@@ -27,18 +27,11 @@ function addToCart(product) {
 </script>
 
 <template>
-    <!-- <ul class="list-group">
-        <li v-for="(product, index) in products" :key="product.productId" :class="{ active: index === selectedIndex }"
-            class="list-group-item px-3" @click="$emit('update:selectedIndex', index)">
-            {{ product.name }}
-        </li>
-    </ul> -->
-
     <div class="card-grid">
         <div class="row">
             <div class="col-md-12">
                 <div class="row d-flex align-items-stretch">
-                    <div class="col-md-4 mb-4" v-for="(product, index) in products" :key="product.productId"
+                    <div class="col-md-3 mb-4" v-for="(product, index) in products" :key="product.productId"
                         :class="{ active: index === selectedIndex }">
                         <div class=" card hover-effect" @click="$emit('update:selectedIndex', index)">
                             <img :src="product.image" class="card-img-top" :alt="`Image`">

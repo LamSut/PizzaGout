@@ -20,7 +20,7 @@ defineProps({
             <strong>Price: $</strong>{{ product.price }}
         </div>
         <div class="p-1">
-            <strong>Description:</strong>
+            <strong>Description: </strong>
             {{ product.description }}
         </div>
         <br>
@@ -33,7 +33,7 @@ defineProps({
 
 .card-info {
     background-color: darkred;
-    color: azure;
+    color: whitesmoke;
     border-radius: 2%;
 }
 

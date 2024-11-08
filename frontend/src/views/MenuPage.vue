@@ -85,7 +85,6 @@ watch(searchText, () => (selectedIndex.value = -1));
       </div>
     </div>
     <div class="mt-3 col-md-6 bg-dark custom-position text-light">
-      <h4 class="mb-4 text-center">Your cart</h4>
       <CartItems></CartItems>
     </div>
   </div>
@@ -93,21 +92,24 @@ watch(searchText, () => (selectedIndex.value = -1));
 
 <style scoped>
 .page {
-  max-width: 1200px;
-  margin-left: 60px;
+  max-width: 1600px;
+  margin-left: -100px;
   margin-right: 0px;
 }
 
 .product-info {
-  width: 30%;
-  margin-left: -8px;
+  width: 25%;
+  margin-left: 40px;
 }
 
 .custom-position {
   position: absolute;
   right: 0px;
-  top: 0px;
-  height: 713px;
+  top: -20px;
+  height: 100%;
   width: 400px;
+  border-color: darkred;
+  border-width: 4px;
+  border-style: groove;
 }
 </style>
