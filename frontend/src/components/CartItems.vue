@@ -15,9 +15,8 @@ async function orderItems() {
     for (const item of itemStore.items) {
         addItemToCart({ cartid: cartId, productid: item.id, quantity: item.quantity });
     }
-    itemStore.clearItems();
+    window.alert(`Thank you! You can check your order again with CartID: ${cartId}. Your order will be delivered shortly!`); itemStore.clearItems();
     cartStore.clearCartId();
-    window.alert('Thank you! Your order will be delivered shortly!');
     router.push('/');
 }
 

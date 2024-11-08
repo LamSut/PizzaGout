@@ -1,3 +1,4 @@
+import { computed } from 'vue';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/vue-query';
 import cartService from '@/services/cart.service';
 
@@ -59,10 +60,11 @@ export default function useCart() {
   //ITEMS IN CART
 
   function fetchItemsInCart(cartId) {
-    const { data: items, ...rest } = useQuery({
-      queryKey: ['items'],
+    const { data: cartItems, ...rest } = useQuery({
+      queryKey: ['items', cartId],
       queryFn: () => cartService.fetchItemsInCart(cartId)
     });
+    const items = computed(() => cartItems.value?.items ?? []);
     return { items, rest };
   }
 

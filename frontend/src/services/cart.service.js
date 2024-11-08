@@ -1,3 +1,4 @@
+import { DEFAULT_IMAGE } from '@/constants';
 /**
 * @param {string} url
 * @param {RequestInit} options
@@ -61,7 +62,13 @@ function makeCartService() {
     }
 
     async function fetchItemsInCart(cartId) {
-        const { data } = await efetch(`${baseUrl}/${cartId}/product`);
+        const data = await efetch(`${baseUrl}/${cartId}/product`);
+        data.items = data.items.map((item) => {
+            return {
+                ...item,
+                image: item.image ?? DEFAULT_IMAGE
+            };
+        });
         return data;
     }
 

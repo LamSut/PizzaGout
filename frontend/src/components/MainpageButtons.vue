@@ -2,9 +2,10 @@
   <div class="d-flex justify-content-center pt-2">
     <router-link to="/menu" class="btn btn-danger me-2 fs-6"><b>START BOOKING</b></router-link>
     <router-link to="/info" class="btn btn-custom me-2 fs-6"><b>ENTER INFORMATION</b></router-link>
+    <router-link to="/order" class="btn btn-warning me-2 fs-6 text-light"><b>VIEW MY ORDER</b></router-link>
   </div>
 </template>
-<style>
+<style scoped>
 .btn-custom {
   background-color: rgb(128, 0, 0);
   color: white;
@@ -17,6 +18,6 @@
 }
 
 a.fs-6:hover {
-  color: black;
+  color: black !important;
 }
 </style>
