@@ -1,6 +1,6 @@
 const express = require('express');
 const cors = require('cors');
-const session = require('./middlewares/session-storage');
+const session = require('express-session');
 
 const JSend = require('./jsend');
 const productRouter = require('./routes/product-router');
@@ -13,10 +13,19 @@ const { specs, swaggerUi } = require('./docs/swagger');
 
 const app = express();
 
-app.use(session);
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+
+app.use(session({
+    secret: 'B2111933-B2111952',
+    resave: false,
+    saveUninitialized: false,
+    cookie: {
+        secure: false,
+        maxAge: 24 * 60 * 60 * 1000,
+    }
+}));
 
 app.get('/', (req, res) => {
     return res.json(JSend.success());
