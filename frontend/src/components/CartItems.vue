@@ -41,11 +41,10 @@ function decreaseQuantity(item) {
 }
 </script>
 <template>
-    <br>
-    <h4 class="mb-4 text-center">Your cart</h4>
-    <div>
+    <div class="mb-4 d-flex align-items-center">
+        <h3 style="margin-top: 40px;">Your Cart</h3>
         <router-link to="/info">
-            <button class="edit-btn btn btn-danger fw-bold">Edit Infomation</button>
+            <button class="edit-btn btn btn-danger fw-bold ms-auto">Edit Infomation</button>
         </router-link>
     </div>
     <div class="scrollBar">
@@ -77,7 +76,7 @@ function decreaseQuantity(item) {
         <hr>
         <button class="pay-btn btn btn-success fw-bold" @click="orderItems">Order</button>
         <button class="delete-btn btn btn-danger fw-bold" @click="itemStore.clearItems">
-            Delete all from carts
+            Delete all from Cart
         </button>
     </div>
 </template>
@@ -106,19 +105,20 @@ function decreaseQuantity(item) {
 }
 
 .scrollBar {
-    margin-top: 80px;
+    margin-top: 20px;
     overflow-y: scroll;
-    height: 450px;
+    height: 460px;
 }
 
 .total {
     position: absolute;
-    bottom: 0px;
-    padding-bottom: 30px;
+    margin-top: 20px;
+    padding: 0px 0px 20px 10px;
 }
 
 .pay-btn {
-    margin-right: 135px;
+    margin-right: 70px;
+    width: 80px;
 }
 
 .item-quantity {
