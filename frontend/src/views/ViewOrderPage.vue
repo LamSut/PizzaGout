@@ -17,5 +17,8 @@ const { items } = fetchItemsInCart(cartID);
 </script>
 
 <template>
-    <ViewOrder :items="items"></ViewOrder>
+    <div style="position: relative;">
+        <h2 class="fw-bold fs-2 text-center mt-3">YOUR ORDER</h2>
+        <ViewOrder :items="items"></ViewOrder>
+    </div>
 </template>

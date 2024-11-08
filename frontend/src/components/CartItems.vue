@@ -79,7 +79,7 @@ function decreaseQuantity(item) {
         </button>
     </div>
 </template>
-<style scoped>
+<style>
 .edit-btn {
     position: absolute;
     right: 10px;
