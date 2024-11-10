@@ -98,7 +98,7 @@ components:
               data:
                 type: object
                 properties:
-                  contact:
+                  product:
                     $ref: '#/components/schemas/Product'
     '200Cart':
       content:
@@ -113,7 +113,7 @@ components:
               data:
                 type: object
                 properties:
-                  contact:
+                  cart:
                     $ref: '#/components/schemas/Cart'
     '200Item':
       content:
@@ -128,7 +128,7 @@ components:
               data:
                 type: object
                 properties:
-                  contact:
+                  item:
                     $ref: '#/components/schemas/Item'
     '200NoData':
       content:

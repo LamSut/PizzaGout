@@ -72,11 +72,6 @@ function makeCartService() {
         return data;
     }
 
-    // async function fetchItemInCart(cartId, itemId) {
-    //     const { item } = await efetch(`${baseUrl}/${cartId}/product/${itemId}`);
-    //     return item;
-    // }
-
     async function addItemToCart(item) {
         return efetch(`${baseUrl}/${item.cartid}/product/${item.productid}`, {
             method: 'POST',
@@ -84,20 +79,6 @@ function makeCartService() {
             body: JSON.stringify(item),
         });
     }
-
-    // async function updateItemInCart(item) {
-    //     return efetch(`${baseUrl}/${item.cartId}/product/${item.productId}`, {
-    //         method: 'PUT',
-    //         headers: { 'Content-Type': 'application/json' },
-    //         body: JSON.stringify(item),
-    //     });
-    // }
-
-    // async function deleteItemInCart(cartId, productId) {
-    //     return efetch(`${baseUrl}/${cartId}/product/${productId}`, {
-    //         method: 'DELETE',
-    //     });
-    // }
 
     return {
         sessionCartId,
@@ -108,10 +89,7 @@ function makeCartService() {
         deleteCart, //Huy don hang
 
         fetchItemsInCart,
-        // fetchItemInCart,
         addItemToCart,
-        // updateItemInCart,
-        // deleteItemInCart,
     };
 }
 export default makeCartService();

@@ -17,6 +17,7 @@ app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
+// Use session
 app.use(session({
     secret: 'B2111933-B2111952',
     resave: false,
@@ -31,11 +32,13 @@ app.get('/', (req, res) => {
     return res.json(JSend.success());
 });
 
+//Get session
 app.get('/api/v1', (req, res) => {
     const cartId = req.session.cartId;
     res.json(JSend.success({ cartId }));
 });
 
+//Clear session
 app.get('/api/v1/clear', (req, res) => {
     req.session.cartId = 0;
     const cartId = req.session.cartId;

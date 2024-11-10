@@ -44,42 +44,9 @@ function makeProductService() {
     }
 
     // This project is User interface, so no write Products
-
-    // async function createProduct(product) {
-    //     return efetch(baseUrl, {
-    //         method: 'POST',
-    //         headers: { 'Content-Type': 'application/json' },
-    //         body: JSON.stringify(product),
-    //     });
-    // }
-
-    // async function deleteAllProducts() {
-    //     return efetch(baseUrl, {
-    //         method: 'DELETE',
-    //     });
-    // }
-
-    // async function updateProduct(product) {
-    //     return efetch(`${baseUrl}/${product.productId}`, {
-    //         method: 'PUT',
-    //         headers: { 'Content-Type': 'application/json' },
-    //         body: JSON.stringify(product),
-    //     });
-    // }
-
-    // async function deleteProduct(productId) {
-    //     return efetch(`${baseUrl}/${productId}`, {
-    //         method: 'DELETE',
-    //     });
-    // }
-
     return {
         fetchProducts,
         fetchProduct,
-        // createProduct,
-        // updateProduct,
-        // deleteProduct,
-        // deleteAllProducts,
     };
 }
 export default makeProductService();

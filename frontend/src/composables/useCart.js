@@ -41,22 +41,6 @@ export default function useCart() {
     }
   });
 
-  // const deleteCartMutation = useMutation({
-  //   mutationFn: cartService.deleteCart,
-  //   onSuccess: (data) => {
-  //     queryClient.setQueryData(['carts'], (oldData) => {
-  //       if (!oldData) return data;
-  //       return {
-  //         ...oldData,
-  //         carts: [...oldData.carts, data]
-  //       };
-  //     });
-  //   },
-  //   onError: (error) => {
-  //     console.error('Error updating cart:', error);
-  //   }
-  // });
-
   //ITEMS IN CART
 
   function fetchItemsInCart(cartId) {
@@ -82,7 +66,7 @@ export default function useCart() {
     fetchCartInformation,
     createCart: createCartMutation.mutate,
     updateCartInformation: updateCartMutation.mutate,
-    // deleteCart: deleteCartMutation.mutate,
+
     fetchItemsInCart,
     addItemToCart: addItemMutation.mutate
   };

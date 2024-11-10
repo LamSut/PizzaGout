@@ -3,6 +3,7 @@ import MainPage from '@/views/MainPage.vue';
 import MenuPage from '@/views/MenuPage.vue';
 import InformationPage from '@/views/InformationPage.vue';
 import ViewOrderPage from '@/views/ViewOrderPage.vue';
+
 const routes = [
   {
     path: '/',
@@ -30,6 +31,7 @@ const routes = [
     component: () => import('@/views/NotFound.vue')
   }
 ];
+
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes

@@ -1,6 +1,6 @@
 <script setup>
 import ViewOrder from '@/components/ViewOrder.vue';
-import { useRouter, useRoute } from 'vue-router';
+import { useRouter } from 'vue-router';
 import useCart from '@/composables/useCart';
 
 const router = useRouter();

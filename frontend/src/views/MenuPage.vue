@@ -19,7 +19,7 @@ if (cartStore.cartId == null) {
   router.push('/');
 }
 
-// current page is from the query string (?page=1)
+// Current page is from the query string (?page=1)
 const currentPage = computed(() => {
   const page = Number(route.query?.page);
   if (Number.isNaN(page) || page < 1) return 1;
@@ -29,7 +29,7 @@ const currentPage = computed(() => {
 const selectedIndex = ref(-1);
 const searchText = ref('');
 
-const { fetchProducts, deleteAllProducts } = useProduct();
+const { fetchProducts } = useProduct();
 const { totalPages, products } = fetchProducts(currentPage);
 
 // Map each product to a string for searching
