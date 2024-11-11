@@ -9,7 +9,7 @@ console.log(cartStore.cartId)
 </script>
 
 <template>
-  <h1 class="text-center fw-bold mt-3">WELCOME TO PIZZA STORE</h1>
+  <h1 class="text-center fw-bold mt-3">WELCOME TO PIZZAGOUT</h1>
   <MainPageButtons />
   <hr />
   <MainCarousel />

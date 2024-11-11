@@ -43,7 +43,7 @@ function decreaseQuantity(item) {
     <div class="mb-4 d-flex align-items-center">
         <h3 style="margin-top: 40px;">Your Cart</h3>
         <router-link to="/info">
-            <button class="edit-btn btn btn-danger fw-bold ms-auto">Edit Infomation</button>
+            <button class="edit-btn btn btn-warning fw-bold ms-auto">Enter Infomation</button>
         </router-link>
     </div>
     <div class="scrollBar">
