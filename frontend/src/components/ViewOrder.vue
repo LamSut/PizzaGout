@@ -11,14 +11,16 @@ defineProps({
                 <div class="d-flex">
                     <img :src="item.image" class="item-image">
                     <div class="item-details ms-3">
-                        <h5>Product: {{ item.productName }}</h5>
+                        <h5>{{ item.productName }}</h5>
                         <span>
-                            <p class="price-one-item">Price per one item: ${{ item.priceForOneItem }}</p>
+                            <p class="price-one-item">Price: ${{ item.priceForOneItem }}</p>
                         </span>
                         <div class="item-quantity">
                             <p>Quantity: {{ item.quantity }} </p>
                         </div>
-                        <p class="fw-bold">Subtotal: ${{ item.quantity * item.priceForOneItem }}</p>
+                        <p class="fw-bold" style="margin-bottom: 5px;">
+                            Subtotal: ${{ item.quantity * item.priceForOneItem }}
+                        </p>
                     </div>
                 </div>
             </div>

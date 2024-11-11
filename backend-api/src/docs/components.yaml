@@ -21,7 +21,7 @@ components:
           type: string
           description: product description
         price:
-          type: integer
+          type: float
           description: product price
         image:
           type: string
