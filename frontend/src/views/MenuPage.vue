@@ -57,13 +57,14 @@ function changeCurrentPage(page) {
   router.push({ name: 'MenuPage', query: { page } });
 }
 
-// Whenever searchText changes, reset selectedIndex
+// Whenever searchText & currentPage changes, reset selectedIndex
 watch(searchText, () => (selectedIndex.value = -1));
+watch(currentPage, () => (selectedIndex.value = -1));
 </script>
 
 <template>
   <div class="page row">
-    <div class="mt-3 col-md-6">
+    <div class="mt-3 col-md-7">
       <div class="my-2">
         <SearchBar v-model="searchText" />
       </div>
@@ -93,13 +94,14 @@ watch(searchText, () => (selectedIndex.value = -1));
 <style scoped>
 .page {
   max-width: 1600px;
-  margin-left: -100px;
+  margin-left: -120px;
   margin-right: 0px;
 }
 
 .product-info {
-  width: 25%;
-  margin-left: 40px;
+  width: 22%;
+  margin-left: 10px;
+  padding-top: 3%;
 }
 
 .custom-position {

@@ -41,6 +41,7 @@ defineProps({
 <style scoped>
 .container {
     width: 50%;
+    margin-bottom: 40px;
 }
 
 .items {
