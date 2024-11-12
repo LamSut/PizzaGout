@@ -9,7 +9,7 @@ export default function useCart() {
 
   function fetchCartInformation(id) {
     const { data: cart, error } = useQuery({
-      queryKey: ['cart'],
+      queryKey: ['cart', id],
       queryFn: async () => {
         try {
           return await cartService.fetchCartInformation(id);

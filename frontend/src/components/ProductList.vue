@@ -29,10 +29,10 @@ function addToCart(product) {
 <template>
     <div class="card-grid">
         <div class="row">
-            <div class="col-md-12">
+            <div>
                 <div class="row d-flex align-items-stretch">
-                    <div class="col-md-3 mb-4" v-for="(product, index) in products" :key="product.productId"
-                        :class="{ active: index === selectedIndex }">
+                    <div class="col-sm-6 col-md-4 col-lg-3 mb-4" v-for="(product, index) in products"
+                        :key="product.productId" :class="{ active: index === selectedIndex }">
                         <div class=" card hover-effect" @click="$emit('update:selectedIndex', index)">
                             <img :src="product.image" class="card-img-top" :alt="`Image`">
                             <div class="card-body d-flex flex-column">

@@ -40,8 +40,8 @@ defineProps({
 </template>
 <style scoped>
 .container {
-    width: 50%;
-    margin-bottom: 40px;
+    width: 540px;
+    margin-bottom: 30px;
 }
 
 .items {

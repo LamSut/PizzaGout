@@ -100,18 +100,18 @@ watch(currentPage, () => (selectedIndex.value = -1));
 
 .product-info {
   width: 22%;
-  margin-left: 10px;
+  margin-left: -5px;
   padding-top: 3%;
 }
 
 .custom-position {
   position: absolute;
-  right: 0px;
-  top: -20px;
-  height: 100%;
+  right: 10px;
+  height: 648px;
   width: 400px;
   border-color: darkred;
   border-width: 4px;
   border-style: groove;
+  border-radius: 4%;
 }
 </style>

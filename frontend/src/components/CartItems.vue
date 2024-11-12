@@ -41,7 +41,7 @@ function decreaseQuantity(item) {
 </script>
 <template>
     <div class="mb-4 d-flex align-items-center">
-        <h3 style="margin-top: 40px;">Your Cart</h3>
+        <h3 style="margin-top:20px;">Your Cart</h3>
         <router-link to="/info">
             <button class="edit-btn btn btn-warning fw-bold ms-auto">Enter Infomation</button>
         </router-link>
@@ -82,6 +82,7 @@ function decreaseQuantity(item) {
 <style>
 .edit-btn {
     position: absolute;
+    top: 20px;
     right: 10px;
     display: inline-block;
 }
@@ -106,7 +107,7 @@ function decreaseQuantity(item) {
 .scrollBar {
     margin-top: 20px;
     overflow-y: scroll;
-    height: 460px;
+    height: 400px;
 }
 
 .total {

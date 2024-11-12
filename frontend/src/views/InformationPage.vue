@@ -17,17 +17,17 @@ const message = ref('');
 
 const { fetchCartInformation, createCart, updateCartInformation } = useCart();
 
-let cart = ref({
+let cart = {
     name: '',
     address: '',
     phone: ''
-});
+};
 
 if (cartStore.cartId) {
     cart = fetchCartInformation(cartStore.cartId);
 }
 
-async function onCart(cart) {
+async function onEnterInformation(cart) {
     try {
         if (cartStore.cartId > 0) {
             updateCartInformation(cart);
@@ -46,8 +46,8 @@ async function onCart(cart) {
 </script>
 <template>
     <div v-if="cart">
-        <h2 class="text-center fw-bold mt-3">CUSTOMER INFOMATION FORM</h2>
-        <InfomationForm :cart="cart" :show-popup="showPopup" @submit:cart="onCart" />
+        <h2 class="text-center fw-bold mt-3">CUSTOMER INFORMATION FORM</h2>
+        <InfomationForm :cart="cart" :show-popup="showPopup" @submit:cart="onEnterInformation" />
     </div>
     <div v-else>
         Loading cart information...
