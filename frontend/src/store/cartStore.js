@@ -15,7 +15,8 @@ export const useCartStore = defineStore('cart', {
       const cartId = await cartService.clearCartId();
       this.cartId = cartId;
     },
-  }
+  },
+  persist: true
 });
 
 export const useItemStore = defineStore('itemStore', {
@@ -46,5 +47,6 @@ export const useItemStore = defineStore('itemStore', {
         this.items.splice(index, 1);
       }
     }
-  }
+  },
+  persist: true
 });
