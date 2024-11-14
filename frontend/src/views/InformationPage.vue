@@ -1,16 +1,12 @@
 <script setup>
 import InfomationForm from '@/components/InfomationForm.vue';
 import { ref } from 'vue';
-import { useRouter } from 'vue-router';
 import { useCartStore } from '@/store/cartStore'
 import useCart from '@/composables/useCart';
 
-const router = useRouter();
 const cartStore = useCartStore()
+cartStore.fetchCartId()
 console.log(cartStore.cartId)
-if (cartStore.cartId == null) {
-    router.push('/');
-}
 
 const showPopup = ref(false);
 const message = ref('');
@@ -37,7 +33,8 @@ async function onEnterInformation(cart) {
             createCart(cart);
             message.value = 'A new Cart has been created!';
         }
-        showPopup.value = true;
+        window.alert("Your information has been updated successfully!\nLet's go to the menu!");
+        window.location.href = '/menu';
     } catch (error) {
         console.error('Error creating or updating cart:', error);
         message.value = error.message;

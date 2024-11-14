@@ -14,10 +14,8 @@ const router = useRouter();
 const route = useRoute();
 
 const cartStore = useCartStore()
+cartStore.fetchCartId()
 console.log(cartStore.cartId)
-if (cartStore.cartId == null) {
-  router.push('/');
-}
 
 // Current page is from the query string (?page=1)
 const currentPage = computed(() => {

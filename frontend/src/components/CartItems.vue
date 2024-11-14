@@ -12,12 +12,19 @@ const router = useRouter();
 
 async function orderItems() {
     const cartId = cartStore.cartId;
+    if (!cartId) {
+        console.error("No cart ID available.");
+        window.alert('Provide your information, please...');
+        router.push('/info');
+        return;
+    }
     for (const item of itemStore.items) {
         addItemToCart({ cartid: cartId, productid: item.id, quantity: item.quantity });
     }
-    window.alert(`Thank you! You can check your order again with CartID: ${cartId}. Your order will be delivered shortly!`); itemStore.clearItems();
     cartStore.clearCartId();
+    window.alert(`Thank you! You can check your order again with CartID: ${cartId}. Your order will be delivered shortly!`);
     router.push('/');
+    itemStore.clearItems();
 }
 
 const totalPrice = computed(() => {

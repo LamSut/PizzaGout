@@ -50,48 +50,4 @@ function submitCartInformation() {
             </div>
         </div>
     </form>
-    <div v-if="showPopup" class="custom-popup">
-        <div class="popup-content">
-            <h5>Success!</h5>
-            <p>Your information has been updated successfully!</p>
-            <a href="/">
-                <button class="btn btn-warning">
-                    <a class="link-danger fs-5 fw-bold">Let's order some pizza...</a>
-                </button>
-            </a>
-        </div>
-    </div>
 </template>
-<style scoped>
-.custom-popup {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: rgba(0, 0, 0, 0.7);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 1000;
-}
-
-.popup-content {
-    background: white;
-    padding: 20px;
-    border-radius: 8px;
-    text-align: center;
-}
-
-.popup-content h5 {
-    margin-bottom: 15px;
-}
-
-.popup-content button {
-    margin-top: 10px;
-}
-
-.link-danger {
-    text-decoration: none;
-}
-</style>

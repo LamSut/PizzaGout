@@ -1,29 +1,12 @@
 <script setup>
 import { useItemStore } from '@/store/cartStore';
-import { useCartStore } from '@/store/cartStore';
-import { useRouter } from 'vue-router';
-
 defineProps({
     products: { type: Array, default: () => [] },
     selectedIndex: { type: Number, default: -1 },
 });
 
 const $emit = defineEmits(['update:selectedIndex']);
-
-const cartStore = useCartStore();
 const itemStore = useItemStore();
-const router = useRouter();
-
-function addToCart(product) {
-    const cartId = cartStore.cartId;
-    if (!cartId) {
-        console.error("No cart ID available.");
-        window.alert('Provide your information, please...');
-        router.push('/info');
-        return;
-    }
-    itemStore.addItem(product);
-}
 </script>
 
 <template>
@@ -39,7 +22,7 @@ function addToCart(product) {
                                 <h5 class="card-title">{{ product.name }}</h5>
                                 <div class="d-flex justify-content-between align-items-center mb-2">
                                     <span class="fw-bold fs-6 card-text">${{ product.price }}</span>
-                                    <button class="btn btn-danger btn-sm" @click.stop="addToCart(product)">
+                                    <button class="btn btn-danger btn-sm" @click.stop="itemStore.addItem(product);">
                                         <i class="fas fa-plus"></i> Add
                                     </button>
                                 </div>
