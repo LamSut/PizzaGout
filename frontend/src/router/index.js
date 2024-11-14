@@ -2,7 +2,7 @@ import { createWebHistory, createRouter } from 'vue-router';
 import MainPage from '@/views/MainPage.vue';
 import MenuPage from '@/views/MenuPage.vue';
 import InformationPage from '@/views/InformationPage.vue';
-import ViewOrderPage from '@/views/ViewOrderPage.vue';
+import CheckOrderPage from '@/views/CheckOrderPage.vue';
 
 const routes = [
   {
@@ -22,8 +22,8 @@ const routes = [
   },
   {
     path: '/order',
-    name: 'ViewOrderPage',
-    component: ViewOrderPage
+    name: 'CheckOrderPage',
+    component: CheckOrderPage
   },
   {
     path: '/:pathMatch(.*)*',
