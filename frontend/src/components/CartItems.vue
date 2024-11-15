@@ -33,6 +33,11 @@ const totalPrice = computed(() => {
     }, 0).toFixed(2);
 });
 
+// Check if cart is empty
+const isCartEmpty = computed(() => {
+    return itemStore.items.length === 0;
+});
+
 function increaseQuantity(item) {
     itemStore.addItem({ productId: item.id, name: item.name, price: item.price, image: item.image });
 }
@@ -80,7 +85,7 @@ function decreaseQuantity(item) {
     <div class="total">
         <h4 class="mb-4">Total: ${{ totalPrice }}</h4>
         <hr>
-        <button class="pay-btn btn btn-success fw-bold" @click="orderItems">Order</button>
+        <button class="pay-btn btn btn-success fw-bold" @click="orderItems" :disabled="isCartEmpty">Order</button>
         <button class="delete-btn btn btn-danger fw-bold" @click="itemStore.clearItems">
             Delete all from Cart
         </button>

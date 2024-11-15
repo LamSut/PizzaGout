@@ -7,15 +7,10 @@ import CartItems from '@/components/CartItems.vue';
 
 import { ref, computed, watch, onMounted } from 'vue';
 import { useRouter, useRoute } from 'vue-router';
-import { useCartStore } from '@/store/cartStore'
 import useProduct from '@/composables/useProduct';
 
 const router = useRouter();
 const route = useRoute();
-
-const cartStore = useCartStore()
-cartStore.fetchCartId()
-console.log(cartStore.cartId)
 
 // Current page is from the query string (?page=1)
 const currentPage = computed(() => {

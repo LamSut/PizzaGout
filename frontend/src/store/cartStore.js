@@ -8,8 +8,7 @@ export const useCartStore = defineStore('cart', {
   actions: {
     async fetchCartId() {
       const cartId = await cartService.sessionCartId();
-      if (cartId) this.cartId = cartId;
-      else this.cartId = 0;
+      this.cartId = cartId;
     },
     async clearCartId() {
       const cartId = await cartService.clearCartId();

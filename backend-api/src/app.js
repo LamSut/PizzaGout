@@ -22,10 +22,6 @@ app.use(session({
     secret: 'B2111933-B2111952',
     resave: false,
     saveUninitialized: false,
-    cookie: {
-        secure: false,
-        maxAge: 24 * 60 * 60 * 1000,
-    }
 }));
 
 app.get('/', (req, res) => {
@@ -40,7 +36,7 @@ app.get('/api/v1', (req, res) => {
 
 //Clear session
 app.get('/api/v1/clear', (req, res) => {
-    req.session.cartId = 0;
+    req.session.cartId = null;
     const cartId = req.session.cartId;
     res.json(JSend.success({ cartId }));
 });

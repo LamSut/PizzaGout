@@ -5,9 +5,6 @@ import { useCartStore } from '@/store/cartStore'
 import useCart from '@/composables/useCart';
 
 const cartStore = useCartStore()
-cartStore.fetchCartId()
-console.log(cartStore.cartId)
-
 const showPopup = ref(false);
 const message = ref('');
 

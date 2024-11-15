@@ -12,7 +12,7 @@ CREATE TABLE product (
     name VARCHAR(100) NOT NULL,
     type VARCHAR(20) NOT NULL,
     description TEXT,
-    price INT NOT NULL,
+    price FLOAT NOT NULL,
     image VARCHAR(255) DEFAULT NULL
 );
 
