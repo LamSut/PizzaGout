@@ -1,10 +1,11 @@
 import { computed } from 'vue';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/vue-query';
 import cartService from '@/services/cart.service';
+import { useCartStore } from '@/store/cartStore'
 
 export default function useCart() {
   const queryClient = useQueryClient();
-
+  const cartStore = useCartStore()
   //CART INFORMATION
 
   function fetchCartInformation(id) {
@@ -15,6 +16,7 @@ export default function useCart() {
           return await cartService.fetchCartInformation(id);
         } catch (error) {
           console.error('Error fetching cart:', error);
+          cartStore.clearCartId();
         }
       }
     });

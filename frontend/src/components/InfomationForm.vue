@@ -6,7 +6,6 @@ import { z } from 'zod';
 
 const props = defineProps({
     cart: { type: Object, required: true },
-    showPopup: { type: Boolean, required: true }
 });
 
 const editCart = ref({ ...props.cart });

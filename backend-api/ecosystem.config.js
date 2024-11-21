@@ -2,7 +2,7 @@ module.exports = {
   apps: [
     {
       name: 'pizza-api',
-      instances: 4,
+      instances: 1,
       script: 'server.js',
       autorestart: true,
       watch: '.',
