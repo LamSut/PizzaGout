@@ -1,5 +1,5 @@
 # base image node for build stage
-FROM node:23-alpine AS build
+FROM node:23-alpine
 
 # working directory of container is /app
 WORKDIR /app
@@ -14,25 +14,8 @@ RUN npm install
 # copy source code into workdir "/app" of container
 COPY . .
 
-# build VueJS app, the app will be stored in "build" directory
-RUN npm run build
+# expose port 5173 for Vue
+EXPOSE 5173
 
-## RUN STAGE ##
-
-# base image Caddy for run stage
-FROM caddy:2.7-alpine
-
-# working directory for Caddy
-WORKDIR /srv
-
-# create /dist directory, Caddy will run files built inside it
-RUN mkdir ./dist
-
-# copy built Vue app to Caddy workdir
-COPY --from=build /app/dist /srv/dist
-
-# copy the Caddyfile for config
-COPY Caddyfile /etc/caddy/Caddyfile
-
-# start Caddy
-CMD ["caddy", "run", "--config", "/etc/caddy/Caddyfile", "--adapter", "caddyfile"]
+# run Vue in dev mode
+CMD [ "npm", "run", "dev", "--", "--host", "0.0.0.0" ]
