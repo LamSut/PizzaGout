@@ -1,6 +1,9 @@
 # base image node for build stage
 FROM node:23-alpine AS build
 
+# OpenSSL legacy provider (from node:23 to above)
+ENV NODE_OPTIONS=--openssl-legacy-provider
+
 # working directory of container is /app
 WORKDIR /app
 
