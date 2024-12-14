@@ -1,10 +1,10 @@
--- DROP DATABASE pizza
+DROP DATABASE IF EXISTS pizza;
 CREATE DATABASE pizza;
 USE pizza;
-GRANT FILE on *.* TO 'root'@'localhost';
-GRANT ALL PRIVILEGES ON *.* TO 'root'@'localhost';
-ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY '';
-flush privileges;
+-- GRANT FILE on *.* TO 'root'@'localhost';
+-- GRANT ALL PRIVILEGES ON *.* TO 'root'@'localhost';
+-- ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY '';
+-- flush privileges;
 
 -- DROP TABLE product
 CREATE TABLE product (

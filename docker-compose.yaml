@@ -1,0 +1,60 @@
+version: "3.9"
+
+services:
+  # frontend service
+  frontend:
+    image: frontend:v1
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    ports:
+      - "5173:5173"
+    environment:
+      - NODE_ENV=development
+    networks:
+      - app-network
+
+  # backend service
+  backend:
+    image: backend:v1
+    build:
+      context: ./backend-api
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
+    environment:
+      - NODE_ENV=development
+      - DB_HOST=mysql
+      - DB_PORT=3306
+      - DB_USER=root
+      - DB_PASS=1
+      - DB_NAME=pizza
+    depends_on:
+      - mysql # wait MySQL ready first
+    networks:
+      - app-network
+
+  # MySQL database service
+  mysql:
+    image: mysql:8.0
+    container_name: mysql
+    command: mysqld --default-authentication-plugin=mysql_native_password
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: 1
+      MYSQL_DATABASE: pizza
+    ports:
+      - "3308:3306"
+    volumes:
+      - db_data:/var/lib/mysql
+      - ./backend-api/src/database/pizza.sql:/docker-entrypoint-initdb.d/pizza.sql:ro
+    networks:
+      - app-network
+
+volumes:
+  db_data:
+    # store the data of this MySQL service
+
+networks:
+  app-network:
+    driver: bridge
