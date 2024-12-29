@@ -1,7 +1,7 @@
 version: "3.9"
 
 services:
-  # frontend service
+  # FE service
   frontend:
     image: frontend:v1
     build:
@@ -11,10 +11,11 @@ services:
       - "5173:5173"
     environment:
       - NODE_ENV=development
+      - VITE_TARGET=http://backend:3000/
     networks:
       - app-network
 
-  # backend service
+  # BE service
   backend:
     image: backend:v1
     build:
@@ -29,8 +30,11 @@ services:
       - DB_USER=root
       - DB_PASS=1
       - DB_NAME=pizza
+      - REDIS_HOST=redis
+      - REDIS_PORT=6379
     depends_on:
       - mysql # wait MySQL ready first
+      - redis # wait Redis ready first
     networks:
       - app-network
 
@@ -48,6 +52,16 @@ services:
     volumes:
       - db_data:/var/lib/mysql
       - ./backend-api/src/database/pizza.sql:/docker-entrypoint-initdb.d/pizza.sql:ro
+    networks:
+      - app-network
+
+  # Redis service
+  redis:
+    image: redis:7.0
+    container_name: redis
+    restart: always
+    ports:
+      - "6380:6379"
     networks:
       - app-network
 
