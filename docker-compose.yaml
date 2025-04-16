@@ -32,7 +32,7 @@ services:
       - DB_NAME=pizza
       - REDIS_HOST=redis
       - REDIS_PORT=6379
-      - SWAGGER_HOST=backend
+      - SWAGGER_HOST=0.0.0.0
       - SWAGGER_PORT=3000
     depends_on:
       - mysql # wait MySQL ready first
