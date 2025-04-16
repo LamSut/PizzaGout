@@ -1,3 +1,7 @@
+require('dotenv').config();
+const host = process.env.SWAGGER_HOST || 'localhost';
+const port = process.env.SWAGGER_PORT || '3000';
+
 const swaggerJsdoc = require('swagger-jsdoc');
 const swaggerUi = require('swagger-ui-express');
 const options = {
@@ -10,7 +14,7 @@ const options = {
         },
         servers: [
             {
-                url: 'http://localhost:3000',
+                url: `http://${host}:${port}`,
                 description: 'Development server',
             },
         ],
