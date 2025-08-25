@@ -6,7 +6,7 @@ services:
       context: ./frontend
       dockerfile: Dockerfile
     ports:
-      - "${FRONTEND_PORT}:5173"
+      - "${FRONTEND_PORT_EXTERNAL}:5173"
     environment:
       - NODE_ENV=${NODE_ENV}
       - VITE_TARGET=${VITE_TARGET}
@@ -20,7 +20,7 @@ services:
       context: ./backend-api
       dockerfile: Dockerfile
     ports:
-      - "${BACKEND_PORT}:3000"
+      - "${BACKEND_PORT_EXTERNAL}:3000"
     environment:
       - NODE_ENV=${NODE_ENV}
       - DB_HOST=${DB_HOST}
@@ -48,7 +48,7 @@ services:
       MYSQL_ROOT_PASSWORD: ${DB_PASS}
       MYSQL_DATABASE: ${DB_NAME}
     ports:
-      - "${MYSQL_PORT}:3306"
+      - "${MYSQL_PORT_EXTERNAL}:3306"
     volumes:
       - db_data:/var/lib/mysql
       - ./backend-api/src/database/pizza.sql:/docker-entrypoint-initdb.d/pizza.sql:ro
@@ -61,7 +61,7 @@ services:
     container_name: redis
     restart: always
     ports:
-      - "${REDIS_PORT}:6379"
+      - "${REDIS_PORT_EXTERNAL}:6379"
     networks:
       - app-network
 
