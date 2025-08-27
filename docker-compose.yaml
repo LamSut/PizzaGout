@@ -1,7 +1,7 @@
 services:
   # Frontend service
   frontend:
-    image: ${FRONTEND_IMAGE}
+    image: ${FRONTEND_IMAGE}:${VERSION}
     build:
       context: ./frontend
       dockerfile: Dockerfile
@@ -15,7 +15,7 @@ services:
 
   # Backend service
   backend:
-    image: ${BACKEND_IMAGE}
+    image: ${BACKEND_IMAGE}:${VERSION}
     build:
       context: ./backend-api
       dockerfile: Dockerfile
