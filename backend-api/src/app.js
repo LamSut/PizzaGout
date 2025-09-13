@@ -33,7 +33,7 @@ let redisStore = new RedisStore({ client: redisClient, prefix: 'myapp:sess:' });
 app.use(
     session({
         store: redisStore,
-        secret: 'B2111933-B2111952',
+        secret: process.env.SESSION_SECRET,
         resave: false,
         saveUninitialized: false,
     })
