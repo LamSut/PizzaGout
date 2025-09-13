@@ -30,6 +30,7 @@ services:
       - DB_NAME=${DB_NAME}
       - REDIS_HOST=${REDIS_HOST}
       - REDIS_PORT=${REDIS_PORT}
+      - SESSION_SECRET=${SESSION_SECRET}
       - SWAGGER_HOST=${SWAGGER_HOST}
       - SWAGGER_PORT=${SWAGGER_PORT}
     volumes:
