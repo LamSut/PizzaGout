@@ -1,16 +1,16 @@
-localhost {
+http://localhost {
 	root * dist
 	file_server
 
 	handle /api/* {
-		reverse_proxy localhost:3000
+		reverse_proxy {$BACKEND_HOST}:{$BACKEND_PORT}
 	}
 
 	handle /public/* {
-		reverse_proxy localhost:3000
+		reverse_proxy {$BACKEND_HOST}:{$BACKEND_PORT}
 	}
 
 	handle {
-		try_files {path} index.html
+		try_files {path} /index.html
 	}
 }

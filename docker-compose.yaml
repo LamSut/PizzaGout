@@ -1,20 +1,31 @@
 services:
   # Frontend
   frontend:
+    container_name: frontend
     image: ${FRONTEND_IMAGE}:${FRONTEND_VERSION}
     build:
       context: ./pizza-fe
       dockerfile: Dockerfile
-    ports:
-      - "${FRONTEND_PORT_EXTERNAL}:5173"
     env_file:
-      - ./pizza-fe/.env
+      - .env
+    environment:
+      - BACKEND_HOST=${BACKEND_IMAGE}
+      - BACKEND_PORT=${BACKEND_PORT_EXTERNAL}
+    ports:
+      - "${FRONTEND_PORT_EXTERNAL}:80"
     networks:
       - app-network
-    command: ["node", "node_modules/vite/bin/vite.js", "--host", "0.0.0.0"]
+    command: ["caddy", "run", "--config", "/etc/caddy/Caddyfile", "--adapter", "caddyfile"]
+    healthcheck:
+      test: ["CMD-SHELL", "wget -qO- http://localhost || exit 1"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 10s
 
   # Backend
   backend:
+    container_name: backend
     image: ${BACKEND_IMAGE}:${BACKEND_VERSION}
     build:
       context: ./pizza-be
@@ -22,7 +33,7 @@ services:
     ports:
       - "${BACKEND_PORT_EXTERNAL}:3000"
     env_file:
-      - ./pizza-be/.env
+      - .env
     volumes:
       - ./pizza-be/public:/app/public
     depends_on:
@@ -31,23 +42,37 @@ services:
     networks:
       - app-network
     command: ["node", "server.js"]
+    healthcheck:
+      test: ["CMD-SHELL", "wget -qO- http://localhost:3000 || exit 1"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 15s
 
   # Redis
   redis:
     image: redis:${REDIS_VERSION}
     container_name: redis
     restart: always
+    env_file:
+      - .env
     ports:
       - "${REDIS_PORT_EXTERNAL}:6379"
     networks:
       - app-network
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
 
   # MySQL
   mysql:
     image: mysql:${MYSQL_VERSION}
     container_name: mysql
-    command: mysqld --default-authentication-plugin=mysql_native_password
     restart: always
+    env_file:
+      - .env
     environment:
       MYSQL_ROOT_PASSWORD: ${DB_PASS}
       MYSQL_DATABASE: ${DB_NAME}
@@ -58,6 +83,16 @@ services:
       - ./pizza-be/src/database/pizza.sql:/docker-entrypoint-initdb.d/pizza.sql:ro
     networks:
       - app-network
+    healthcheck:
+      test:
+        [
+          "CMD-SHELL",
+          "mysqladmin ping -h localhost -p$DB_PASS || exit 1"
+        ]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+      start_period: 30s
 
 volumes:
   db_data:
