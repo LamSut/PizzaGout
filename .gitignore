@@ -1,0 +1,61 @@
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+logs/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Environment variables
+.env
+.env.*
+!.env.example
+
+# Build artifacts
+dist/
+build/
+out/
+target/
+
+# Dependency directories
+node_modules/
+vendor/
+__pycache__/
+*.pyc
+
+# IDE / Editor
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Docker
+*.tar
+docker-compose.override.yml
+
+# Terraform
+.terraform/
+.terraform.lock.hcl
+*.tfstate
+*.tfstate.*
+
+# Ansible
+*.retry
+
+# Coverage / test
+coverage/
+*.lcov
+
+# Temporary
+tmp/
+temp/
+.cache/
+
+# CI
+artifacts/
+
+# DB
+pizza.sql
