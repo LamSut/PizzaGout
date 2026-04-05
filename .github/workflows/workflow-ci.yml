@@ -1,0 +1,94 @@
+name: Build, Scan, Push and Tag
+
+on:
+  pull_request:
+    branches:
+      - main
+    types:
+      - opened
+      - synchronize
+      - reopened
+
+  pull_request_target:
+    branches:
+      - main
+    types:
+      - closed
+
+permissions:
+  contents: write
+
+jobs:
+  prepare:
+    name: Prepare Services with Version
+    uses: LamSut/CICD/.github/workflows/version-prepare.yml@main
+    with:
+      services: ${{ vars.SERVICES }}
+      event_name: ${{ github.event_name }}
+      ref_name: ${{ github.ref_name }}
+      pr_title: ${{ github.event.pull_request.title || '' }}
+
+  scan-code-quality:
+    name: Scan Code Quality
+    if: github.event_name == 'pull_request'
+    uses: LamSut/CICD/.github/workflows/sonarcloud.yml@main
+    secrets:
+      SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+
+  build-docker-images:
+    name: Build Docker Image
+    if: github.event_name == 'pull_request' && needs.prepare.result == 'success'
+    needs:
+      - prepare
+    strategy:
+      matrix:
+        service: ${{ fromJSON(needs.prepare.outputs.services) }}
+    uses: LamSut/CICD/.github/workflows/docker-build.yml@main
+    with:
+      service: ${{ matrix.service }}
+      version: ${{ needs.prepare.outputs.version }}
+    secrets:
+      DOCKERHUB_USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}
+
+  scan-image-vulnerabilities:
+    name: Scan Image Vulnerabilities
+    if: github.event_name == 'pull_request' && needs.prepare.result == 'success' && needs.build-docker-images.result == 'success'
+    needs:
+      - prepare
+      - build-docker-images
+    strategy:
+      matrix:
+        service: ${{ fromJSON(needs.prepare.outputs.services) }}
+    uses: LamSut/CICD/.github/workflows/trivy.yml@main
+    with:
+      service: ${{ matrix.service }}
+      version: ${{ needs.prepare.outputs.version }}
+    secrets:
+      DOCKERHUB_USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}
+
+  push-docker-images:
+    name: Push Docker Images
+    if: github.event_name == 'pull_request' && needs.prepare.result == 'success' && needs.build-docker-images.result == 'success' && needs.scan-image-vulnerabilities.result == 'success'
+    needs:
+      - prepare
+      - build-docker-images
+      - scan-image-vulnerabilities
+    strategy:
+      matrix:
+        service: ${{ fromJSON(needs.prepare.outputs.services) }}
+    uses: LamSut/CICD/.github/workflows/docker-push.yml@main
+    with:
+      service: ${{ matrix.service }}
+      version: ${{ needs.prepare.outputs.version }}
+    secrets:
+      DOCKERHUB_USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}
+      DOCKERHUB_TOKEN: ${{ secrets.DOCKERHUB_TOKEN }}
+
+  tag-version:
+    name: Tag Version
+    if: github.event_name == 'pull_request_target' && github.event.pull_request.merged == true && github.event.pull_request.base.ref == 'main' && needs.prepare.result == 'success'
+    needs:
+      - prepare
+    uses: LamSut/CICD/.github/workflows/version-tag.yml@main
+    with:
+      version: ${{ needs.prepare.outputs.version }}
