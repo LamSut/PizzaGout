@@ -1,5 +1,9 @@
 name: Build, Scan, Push and Tag
 
+concurrency:
+  group: build-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: false
+
 on:
   pull_request:
     branches:

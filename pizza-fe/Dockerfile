@@ -12,8 +12,13 @@ COPY . .
 RUN npm run build
 
 # Build Caddy Stage
-FROM caddy:2.11-builder-alpine AS caddy-build
-RUN xcaddy build
+FROM caddy:2.11.2-builder-alpine AS caddy-build
+
+RUN xcaddy build \
+    --replace github.com/smallstep/certificates=github.com/smallstep/certificates@v0.30.0 \
+    --replace github.com/go-jose/go-jose/v3=github.com/go-jose/go-jose/v3@v3.0.5 \
+    --replace github.com/go-jose/go-jose/v4=github.com/go-jose/go-jose/v4@v4.1.4 \
+    --replace google.golang.org/grpc=google.golang.org/grpc@v1.79.3
 
 # Run Stage
 FROM alpine:3.22
