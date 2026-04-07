@@ -4,7 +4,9 @@ import { defineConfig } from 'vite'
 dotenv.config()
 
 import vue from '@vitejs/plugin-vue'
-// https://vitejs.dev/config/
+
+const target = process.env.VITE_TARGET || 'http://localhost:3000'
+
 export default defineConfig({
   plugins: [
     vue(),
@@ -17,11 +19,11 @@ export default defineConfig({
   server: {
     proxy: {
       '/api': {
-        target: process.env.VITE_TARGET,
+        target,
         changeOrigin: true,
       },
       '/public': {
-        target: process.env.VITE_TARGET,
+        target,
         changeOrigin: true
       }
     },
