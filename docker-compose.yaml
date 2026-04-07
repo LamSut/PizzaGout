@@ -1,3 +1,5 @@
+version: "3.9"
+
 services:
   # Frontend
   frontend:
@@ -15,13 +17,16 @@ services:
       - "${FRONTEND_PORT_EXTERNAL}:80"
     networks:
       - app-network
-    command: ["caddy", "run", "--config", "/etc/caddy/Caddyfile", "--adapter", "caddyfile"]
+    command: [ "caddy", "run", "--config", "/etc/caddy/Caddyfile", "--adapter", "caddyfile" ]
     healthcheck:
-      test: ["CMD-SHELL", "wget -qO- http://localhost || exit 1"]
+      test: [ "CMD-SHELL", "wget -qO- http://localhost || exit 1" ]
       interval: 30s
       timeout: 5s
       retries: 3
       start_period: 10s
+    profiles:
+      - frontend
+
 
   # Backend
   backend:
@@ -41,13 +46,16 @@ services:
       - redis
     networks:
       - app-network
-    command: ["node", "server.js"]
+    command: [ "node", "server.js" ]
     healthcheck:
-      test: ["CMD-SHELL", "wget -qO- http://localhost:3000 || exit 1"]
+      test: [ "CMD-SHELL", "wget -qO- http://localhost:3000 || exit 1" ]
       interval: 30s
       timeout: 5s
       retries: 3
       start_period: 15s
+    profiles:
+      - backend
+
 
   # Redis
   redis:
@@ -61,10 +69,12 @@ services:
     networks:
       - app-network
     healthcheck:
-      test: ["CMD", "redis-cli", "ping"]
+      test: [ "CMD", "redis-cli", "ping" ]
       interval: 30s
       timeout: 5s
       retries: 3
+    profiles:
+      - redis
 
   # MySQL
   mysql:
@@ -84,18 +94,17 @@ services:
     networks:
       - app-network
     healthcheck:
-      test:
-        [
-          "CMD-SHELL",
-          "mysqladmin ping -h localhost -p$DB_PASS || exit 1"
-        ]
+      test: [ "CMD-SHELL", "mysqladmin ping -h localhost -p$DB_PASS || exit 1" ]
       interval: 30s
       timeout: 10s
       retries: 5
       start_period: 30s
+    profiles:
+      - mysql
 
 volumes:
   db_data:
+
 
 networks:
   app-network:
