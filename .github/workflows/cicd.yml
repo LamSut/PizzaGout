@@ -25,7 +25,7 @@ permissions:
 jobs:
   prepare:
     name: Prepare Services with Version
-    uses: LamSut/CICD/.github/workflows/version-prepare.yml@main
+    uses: LamSut/cicd/.github/workflows/version-prepare.yml@main
     with:
       services: ${{ vars.SERVICES }}
       event_name: ${{ github.event_name }}
@@ -35,7 +35,7 @@ jobs:
   scan-code-quality:
     name: Scan Code Quality
     if: github.event_name == 'pull_request'
-    uses: LamSut/CICD/.github/workflows/sonarcloud.yml@main
+    uses: LamSut/cicd/.github/workflows/sonarcloud.yml@main
     secrets:
       SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
 
@@ -47,7 +47,7 @@ jobs:
     strategy:
       matrix:
         service: ${{ fromJSON(needs.prepare.outputs.services) }}
-    uses: LamSut/CICD/.github/workflows/docker-build.yml@main
+    uses: LamSut/cicd/.github/workflows/docker-build.yml@main
     with:
       service: ${{ matrix.service }}
       version: ${{ needs.prepare.outputs.version }}
@@ -64,7 +64,7 @@ jobs:
     strategy:
       matrix:
         service: ${{ fromJSON(needs.prepare.outputs.services) }}
-    uses: LamSut/CICD/.github/workflows/trivy.yml@main
+    uses: LamSut/cicd/.github/workflows/trivy.yml@main
     with:
       service: ${{ matrix.service }}
       version: ${{ needs.prepare.outputs.version }}
@@ -81,7 +81,7 @@ jobs:
     strategy:
       matrix:
         service: ${{ fromJSON(needs.prepare.outputs.services) }}
-    uses: LamSut/CICD/.github/workflows/docker-push.yml@main
+    uses: LamSut/cicd/.github/workflows/docker-push.yml@main
     with:
       service: ${{ matrix.service }}
       version: ${{ needs.prepare.outputs.version }}
@@ -94,7 +94,7 @@ jobs:
     if: github.event_name == 'pull_request_target' && github.event.pull_request.merged == true && github.event.pull_request.base.ref == 'main' && needs.prepare.result == 'success'
     needs:
       - prepare
-    uses: LamSut/CICD/.github/workflows/version-tag.yml@main
+    uses: LamSut/cicd/.github/workflows/version-tag.yml@main
     with:
       version: ${{ needs.prepare.outputs.version }}
 
@@ -109,7 +109,7 @@ jobs:
       - name: Checkout GitOps repo
         uses: actions/checkout@v4
         with:
-          repository: LamSut/GitOps
+          repository: LamSut/gitops-local
           token: ${{ secrets.GITOPS_TOKEN }}
           path: gitops
 
