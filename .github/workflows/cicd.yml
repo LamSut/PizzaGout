@@ -97,3 +97,59 @@ jobs:
     uses: LamSut/CICD/.github/workflows/version-tag.yml@main
     with:
       version: ${{ needs.prepare.outputs.version }}
+
+  update-gitops-tag:
+    name: Update GitOps Tag
+    if: github.event_name == 'pull_request_target' && github.event.pull_request.merged == true && github.event.pull_request.base.ref == 'main' && needs.prepare.result == 'success'
+    needs:
+      - prepare
+      - tag-version
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout GitOps repo
+        uses: actions/checkout@v4
+        with:
+          repository: LamSut/GitOps
+          token: ${{ secrets.GITOPS_TOKEN }}
+          path: gitops
+
+      - name: Update pizza-be and pizza-fe tags
+        working-directory: gitops
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          import re
+
+          version = "${{ needs.prepare.outputs.version }}"
+          files = [
+              Path("environments/dev/pizza-be-values.yaml"),
+              Path("environments/dev/pizza-fe-values.yaml"),
+          ]
+
+          for path in files:
+              text = path.read_text()
+              new_text, count = re.subn(
+                  r'(tag:\s*")[^"]*(")',
+                  rf'\g<1>{version}\2',
+                  text,
+                  count=1
+              )
+              if count != 1:
+                  raise SystemExit(f"No config file")
+              path.write_text(new_text)
+          PY
+
+      - name: Commit and push
+        working-directory: gitops
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add environments/dev/pizza-be-values.yaml environments/dev/pizza-fe-values.yaml
+
+          if git diff --cached --quiet; then
+            echo "No changes to commit"
+            exit 0
+          fi
+
+          git commit -m "chore: update pizza tags to ${{ needs.prepare.outputs.version }}"
+          git push
