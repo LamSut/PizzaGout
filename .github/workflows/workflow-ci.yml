@@ -51,6 +51,7 @@ jobs:
     with:
       service: ${{ matrix.service }}
       version: ${{ needs.prepare.outputs.version }}
+      build_args: ${{ matrix.service == 'pizza-fe' && vars.VITE_TARGET != '' && format('VITE_TARGET={0}', vars.VITE_TARGET) || '' }}
     secrets:
       DOCKERHUB_USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}
 

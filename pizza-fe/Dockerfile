@@ -9,7 +9,7 @@ COPY package*.json ./
 RUN npm ci
 
 COPY . .
-RUN npm run build
+RUN echo "Building with VITE_TARGET=$VITE_TARGET" && npm run build
 
 # Build Caddy Stage
 FROM caddy:2.11.2-builder-alpine AS caddy-build
