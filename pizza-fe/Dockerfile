@@ -24,11 +24,16 @@ RUN xcaddy build \
 FROM alpine:3.22
 WORKDIR /srv
 
-RUN apk add --no-cache ca-certificates
+RUN apk add --no-cache ca-certificates \
+    && addgroup -S app \
+    && adduser -S app -G app
 
 COPY --from=caddy-build /usr/bin/caddy /usr/bin/caddy
 COPY --from=build /app/dist /srv/dist
 COPY Caddyfile /etc/caddy/Caddyfile
+
+RUN chown -R app:app /srv /etc/caddy
+USER app
 
 EXPOSE 80
 CMD ["caddy", "run", "--config", "/etc/caddy/Caddyfile", "--adapter", "caddyfile"]
